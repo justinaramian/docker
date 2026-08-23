@@ -1,0 +1,17 @@
+services:
+  cloudflare-ddns:
+    image: favonia/cloudflare-ddns:latest
+    container_name: cloudflare-ddns
+    restart: always
+    user: "1000:1000"
+    read_only: true
+    cap_drop: [ "ALL" ]
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      CLOUDFLARE_API_TOKEN: "${CLOUDFLARE_API_TOKEN}"
+      DOMAINS: "${CLOUDFLARE_DOMAINS}"
+      TZ: "America/Los_Angeles"
+      IP6_PROVIDER: "none"
+      # PROXIED: "true"          # orange-cloud new records
+      # UPDATE_CRON: "@every 5m" # change the default schedul
