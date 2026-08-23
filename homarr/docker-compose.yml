@@ -1,0 +1,60 @@
+# Published: https://home.<domain> via reverse proxy
+# Auth: Authentik OIDC, auto-login enabled
+# Note: bundles a docker-socket-proxy on host port 2375
+
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    mac_address: "02:42:0a:01:1e:32"
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.50
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    volumes:
+      - /opt/appdata/homarr:/appdata
+      - /opt/appdata/homarr/certs/ca.crt:/etc/ssl/certs/homarr-ca.crt
+    environment:
+      - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_ENCRYPTION_KEY}
+      - TZ=America/Los_Angeles
+      - DOCKER_HOSTNAMES=10.1.30.172,10.1.30.171
+      - DOCKER_PORTS=2375,2375
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/homarr-ca.crt
+      - BASE_URL=https://home.${DOMAIN}
+      - NEXTAUTH_URL=https://home.${DOMAIN}
+      - AUTH_PROVIDERS=oidc
+      - AUTH_OIDC_AUTO_LOGIN=true
+      - AUTH_OIDC_CLIENT_ID=${HOMARR_OIDC_CLIENT_ID}
+      - AUTH_OIDC_CLIENT_SECRET=${HOMARR_OIDC_CLIENT_SECRET}
+      - AUTH_OIDC_ISSUER=https://auth.${DOMAIN}/application/o/homarr/
+      - AUTH_OIDC_URI=https://auth.${DOMAIN}/application/o/authorize
+      - AUTH_OIDC_CLIENT_NAME=Authentik
+      - AUTH_OIDC_SCOPE_OVERWRITE=openid email profile
+      - AUTH_OIDC_GROUPS_ATTRIBUTE=groups
+      - AUTH_LOGOUT_REDIRECT_URL=https://auth.${DOMAIN}/application/o/homarr/end-session/
+    depends_on:
+      - dockerproxy
+
+  dockerproxy:
+    container_name: dockerproxy-dk02
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    restart: unless-stopped
+    environment:
+      - CONTAINERS=1
+      - IMAGES=1
+      - INFO=1
+      - NETWORKS=1
+      - SERVICES=1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "2375:2375"
+
+networks:
+  macvlan_servers:
+    external: true
+    name: macvlan_servers
