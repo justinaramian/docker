@@ -1,0 +1,71 @@
+# Network: macvlan_servers — 10.1.30.52
+# Published: https://gitea.<domain> via reverse proxy
+# Auth: Authentik OIDC — auth source name must be exactly "authentik"
+
+services:
+  gitea-db:
+    image: postgres:16-alpine
+    container_name: gitea-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: gitea
+      POSTGRES_PASSWORD: ${GITEA_DB_PASSWORD}
+      POSTGRES_DB: gitea
+    volumes:
+      - /opt/stacks/gitea/postgres:/var/lib/postgresql/data
+    networks:
+      - gitea-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gitea"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  gitea:
+    image: gitea/gitea:1.24
+    container_name: gitea
+    restart: unless-stopped
+    depends_on:
+      gitea-db:
+        condition: service_healthy
+    environment:
+      USER_UID: "1000"
+      USER_GID: "1000"
+      TZ: America/Los_Angeles
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: gitea-db:5432
+      GITEA__database__NAME: gitea
+      GITEA__database__USER: gitea
+      GITEA__database__PASSWD: ${GITEA_DB_PASSWORD}
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA__server__DOMAIN: gitea.${DOMAIN}
+      GITEA__server__ROOT_URL: https://gitea.${DOMAIN}/
+      GITEA__server__HTTP_PORT: "3000"
+      GITEA__server__SSH_DOMAIN: gitea.${DOMAIN}
+      GITEA__server__SSH_PORT: "22"
+      GITEA__server__START_SSH_SERVER: "false"
+      GITEA__server__LANDING_PAGE: "login"
+      GITEA__service__DISABLE_REGISTRATION: "false"
+      GITEA__service__ALLOW_ONLY_EXTERNAL_REGISTRATION: "true"
+      GITEA__service__SHOW_REGISTRATION_BUTTON: "false"
+      GITEA__service__ENABLE_PASSWORD_SIGNIN_FORM: "false"
+      GITEA__service__REQUIRE_SIGNIN_VIEW: "true"
+      GITEA__oauth2_client__ENABLE_AUTO_REGISTRATION: "true"
+      GITEA__oauth2_client__ACCOUNT_LINKING: auto
+      GITEA__oauth2_client__USERNAME: preferred_username
+      GITEA__oauth2_client__UPDATE_AVATAR: "true"
+      GITEA__mirror__ENABLED: "true"
+      GITEA__mirror__DEFAULT_INTERVAL: "8h"
+    volumes:
+      - /opt/stacks/gitea/data:/data
+    networks:
+      gitea-internal:
+      macvlan_servers:
+        ipv4_address: 10.1.30.52
+        mac_address: 02:42:0a:01:1e:34
+
+networks:
+  gitea-internal:
+    driver: bridge
+  macvlan_servers:
+    external: true
