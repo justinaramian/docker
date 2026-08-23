@@ -1,0 +1,4 @@
+auth:
+  openid:
+    providers:
+      authentik: {}
