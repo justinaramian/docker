@@ -1,0 +1,21 @@
+services:
+  freshrss:
+    image: lscr.io/linuxserver/freshrss:latest
+    container_name: fresh-rss
+    restart: unless-stopped
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "America/Los_Angeles"
+    volumes:
+      - freshrss_config:/config
+    ports:
+      - "0.0.0.0:32769:80"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  freshrss_config: {}
