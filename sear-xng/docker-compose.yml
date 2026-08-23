@@ -1,0 +1,29 @@
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    networks:
+      - searxng_bridge
+    ports:
+      - "8082:8080"        # fredk02_IP:8082 → reachable by rp01
+    volumes:
+      - /opt/docker/searxng/config:/etc/searxng
+    environment:
+      - SEARXNG_SECRET=${SEARXNG_SECRET}
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  searxng_bridge:
+    driver: bridge
