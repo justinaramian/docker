@@ -1,0 +1,61 @@
+ services:
+  postgres:
+    image: postgres:17
+    container_name: rxresume-postgres
+    restart: unless-stopped
+    networks:
+      - rxresume_net
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${RXRESUME_DB_PASSWORD}"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  reactive-resume:
+    image: amruthpillai/reactive-resume:latest
+    container_name: rxresume
+    restart: unless-stopped
+    networks:
+      - rxresume_net
+    ports:
+      - "3005:3000"
+    volumes:
+      - rxresume_data:/app/data
+    environment:
+      TZ: "America/Los_Angeles"
+      APP_URL: "https://resume.${DOMAIN}"
+      DATABASE_URL: "postgresql://postgres:${RXRESUME_DB_PASSWORD}@postgres:5432/postgres"
+      AUTH_SECRET: "${RXRESUME_AUTH_SECRET}"
+      # --- Authentik OIDC ---
+      OAUTH_PROVIDER_NAME: "${RXRESUME_OAUTH_PROVIDER_NAME}"
+      OAUTH_CLIENT_ID: "${RXRESUME_OAUTH_CLIENT_ID}"
+      OAUTH_CLIENT_SECRET: "${RXRESUME_OAUTH_CLIENT_SECRET}"
+      OAUTH_DISCOVERY_URL: "https://auth.${DOMAIN}/application/o/reactive-resume/.well-known/openid-configuration"
+      OAUTH_SCOPES: "openid profile email"
+      # --- Lock down to SSO only ---
+      # Flip FLAG_DISABLE_SIGNUPS to "true" once every user has logged in once
+      FLAG_DISABLE_SIGNUPS: "false"
+      FLAG_DISABLE_EMAIL_AUTH: "true"
+      FLAG_SHOW_SPONSORS: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  rxresume_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  rxresume_data:
