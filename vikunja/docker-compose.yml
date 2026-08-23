@@ -1,0 +1,63 @@
+# Published: https://task.<domain> via reverse proxy
+# Auth: Authentik OIDC only — local login disabled
+# Note: reads an additional config.yml bind-mounted from the host
+
+services:
+  vikunja:
+    image: vikunja/vikunja:2.5.0
+    container_name: vikunja
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: "https://task.${DOMAIN}/"
+      VIKUNJA_SERVICE_SECRET: "${VIKUNJA_SERVICE_SECRET}"
+      VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
+      VIKUNJA_SERVICE_TIMEZONE: "America/Los_Angeles"
+      VIKUNJA_DATABASE_TYPE: "postgres"
+      VIKUNJA_DATABASE_HOST: "vikunja-db"
+      VIKUNJA_DATABASE_DATABASE: "vikunja"
+      VIKUNJA_DATABASE_USER: "vikunja"
+      VIKUNJA_DATABASE_PASSWORD: "${VIKUNJA_DB_PASSWORD}"
+      VIKUNJA_LOG_LEVEL: "INFO"
+      VIKUNJA_AUTH_LOCAL_ENABLED: "false"
+      VIKUNJA_AUTH_OPENID_ENABLED: "true"
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHENTIK_NAME: "Authentik"
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHENTIK_AUTHURL: "https://auth.${DOMAIN}/application/o/vikunja/"
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHENTIK_LOGOUTURL: "https://auth.${DOMAIN}/application/o/vikunja/end-session/"
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHENTIK_CLIENTID: "${VIKUNJA_OIDC_CLIENT_ID}"
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHENTIK_CLIENTSECRET: "${VIKUNJA_OIDC_CLIENT_SECRET}"
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHENTIK_SCOPE: "openid email profile"
+    volumes:
+      - /opt/stacks/vikunja/files:/app/vikunja/files
+      - /opt/stacks/vikunja/config.yml:/etc/vikunja/config.yml:ro
+    networks:
+      vikunja_internal: {}
+      macvlan_servers:
+        ipv4_address: 10.1.30.51
+    depends_on:
+      vikunja-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  vikunja-db:
+    image: postgres:18
+    container_name: vikunja-db
+    environment:
+      POSTGRES_USER: "vikunja"
+      POSTGRES_PASSWORD: "${VIKUNJA_DB_PASSWORD}"
+      POSTGRES_DB: "vikunja"
+    volumes:
+      - /opt/stacks/vikunja/db:/var/lib/postgresql
+    networks:
+      - vikunja_internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+networks:
+  vikunja_internal:
+    driver: bridge
+  macvlan_servers:
+    external: true
