@@ -1,0 +1,34 @@
+# Published: https://vault.<domain> via reverse proxy
+# Auth: Authentik SSO (button mode) + local vault master passwords
+# Data: named docker volume vaultwarden_data — NOT a bind mount
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vault-warden
+    restart: unless-stopped
+    environment:
+      TZ: "America/Los_Angeles"
+      DOMAIN: "https://vault.${DOMAIN}"
+      SIGNUPS_ALLOWED: "false"
+      ADMIN_TOKEN: "${VAULTWARDEN_ADMIN_TOKEN}"
+      SSO_ENABLED: "true"
+      SSO_CLIENT_ID: "${VAULTWARDEN_SSO_CLIENT_ID}"
+      SSO_CLIENT_SECRET: "${VAULTWARDEN_SSO_CLIENT_SECRET}"
+      SSO_AUTHORITY: "https://auth.${DOMAIN}/application/o/vaultwarden/"
+      SSO_SCOPES: "email profile"
+      SSO_PKCE: "true"
+      SSO_FRONTEND: "button"
+      SSO_SIGNUPS_MATCH_EMAIL: "true"
+    volumes:
+      - vaultwarden_data:/data
+    ports:
+      - "8010:80"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  vaultwarden_data: {}
