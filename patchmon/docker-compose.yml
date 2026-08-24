@@ -1,0 +1,135 @@
+services:
+  server:
+    image: ghcr.io/patchmon/patchmon-server:latest
+    container_name: patchmon-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # --- Required ---
+      DATABASE_URL: postgresql://patchmon_user:${PATCHMON_DB_PASSWORD}@database:5432/patchmon_db
+      JWT_SECRET: ${PATCHMON_JWT_SECRET}
+      AI_ENCRYPTION_KEY: ${PATCHMON_AI_ENCRYPTION_KEY}
+      # --- Server / reverse proxy ---
+      PORT: "3000"
+      APP_ENV: production
+      CORS_ORIGIN: https://patch.${DOMAIN}
+      ENABLE_HSTS: "true"
+      TRUST_PROXY: "true"
+      ENABLE_LOGGING: "true"
+      LOG_LEVEL: info
+      TZ: America/Los_Angeles
+      # --- Redis ---
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ${PATCHMON_REDIS_PASSWORD}
+      # --- RDP gateway (Windows hosts) ---
+      GUACD_ADDRESS: guacd:4822
+      # --- Authentik OIDC ---
+      OIDC_ENABLED: "true"
+      OIDC_ISSUER_URL: https://auth.${DOMAIN}/application/o/patchmon/
+      OIDC_CLIENT_ID: ${PATCHMON_OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${PATCHMON_OIDC_CLIENT_SECRET}
+      OIDC_REDIRECT_URI: https://patch.${DOMAIN}/api/v1/auth/oidc/callback
+      OIDC_SCOPES: openid email profile groups
+      OIDC_BUTTON_TEXT: Login with Authentik
+      OIDC_AUTO_CREATE_USERS: "true"
+      OIDC_DEFAULT_ROLE: readonly
+      OIDC_SYNC_ROLES: "true"
+      OIDC_ADMIN_GROUP: ${PATCHMON_ADMIN_GROUP}
+      OIDC_READONLY_GROUP: ${PATCHMON_READONLY_GROUP}
+      OIDC_DISABLE_LOCAL_AUTH: "true"
+    networks:
+      - patchmon-internal
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      guacd:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  database:
+    image: postgres:17-alpine
+    container_name: patchmon-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: patchmon_user
+      POSTGRES_PASSWORD: ${PATCHMON_DB_PASSWORD}
+      POSTGRES_DB: patchmon_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - patchmon-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U patchmon_user -d patchmon_db"]
+      interval: 3s
+      timeout: 5s
+      retries: 7
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    image: redis:7-alpine
+    container_name: patchmon-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${PATCHMON_REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - patchmon-internal
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a \"$$REDIS_PASSWORD\" ping"]
+      interval: 3s
+      timeout: 5s
+      retries: 7
+    environment:
+      REDIS_PASSWORD: ${PATCHMON_REDIS_PASSWORD}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  guacd:
+    image: guacamole/guacd:1.5.5
+    container_name: patchmon-guacd
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 512m
+    cpus: "1.0"
+    networks:
+      - patchmon-internal
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 4822 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  patchmon-internal:
+    driver:
