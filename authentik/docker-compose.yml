@@ -1,0 +1,98 @@
+services:
+  postgresql:
+    image: docker.io/library/postgres:16-alpine
+    container_name: authentik-postgresql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    volumes:
+      - /opt/stacks/authentik/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      macvlan_identity_services:
+        ipv4_address: 172.16.98.60
+        mac_address: "02:42:98:00:00:60"
+  redis:
+    image: docker.io/library/redis:alpine
+    container_name: authentik-redis
+    command: --save 60 1 --loglevel warning
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 3s
+    volumes:
+      - /opt/stacks/authentik/redis:/data
+    networks:
+      macvlan_identity_services:
+        ipv4_address: 172.16.98.61
+        mac_address: "02:42:98:00:00:61"
+  server:
+    image: ghcr.io/goauthentik/server:2026.5.6
+    container_name: authentik-server
+    restart: unless-stopped
+    command: server
+    environment:
+      AUTHENTIK_REDIS__HOST: 172.16.98.61
+      AUTHENTIK_POSTGRESQL__HOST: 172.16.98.60
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER}
+      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+      AUTHENTIK_LOG_LEVEL: info
+      AUTHENTIK_COOKIE_DOMAIN: ${AUTHENTIK_COOKIE_DOMAIN}
+    volumes:
+      - /opt/stacks/authentik/media:/media
+      - /opt/stacks/authentik/custom-templates:/templates
+      - /opt/stacks/authentik/certs:/certs
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      macvlan_identity_services:
+        ipv4_address: 172.16.98.62
+        mac_address: "02:42:98:00:00:62"
+  worker:
+    image: ghcr.io/goauthentik/server:2026.5.6
+    container_name: authentik-worker
+    restart: unless-stopped
+    command: worker
+    user: root
+    environment:
+      AUTHENTIK_REDIS__HOST: 172.16.98.61
+      AUTHENTIK_POSTGRESQL__HOST: 172.16.98.60
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER}
+      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+      AUTHENTIK_LOG_LEVEL: info
+      AUTHENTIK_COOKIE_DOMAIN: ${AUTHENTIK_COOKIE_DOMAIN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/stacks/authentik/media:/media
+      - /opt/stacks/authentik/certs:/certs
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      macvlan_identity_services:
+        ipv4_address: 172.16.98.63
+        mac_address: "02:42:98:00:00:63"
+networks:
+  macvlan_identity_services:
+    external: true
