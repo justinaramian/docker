@@ -1,6 +1,6 @@
 services:
   wud:
-    image: getwud/wud:latest
+    image: getwud/wud:8.3.1
     container_name: wud
     hostname: wud
     restart: unless-stopped
@@ -11,6 +11,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - wud-store:/store
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
     environment:
       TZ: America/Los_Angeles
       WUD_LOG_LEVEL: info
