@@ -1,6 +1,6 @@
 services:
   dozzle-agent:
-    image: amir20/dozzle:v10.7.4
+    image: amir20/dozzle:latest
     container_name: dozzle-agent
     restart: unless-stopped
     command: agent
@@ -10,8 +10,6 @@ services:
       - "7007:7007"
     networks:
       - dozzle_agent_net
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 networks:
   dozzle_agent_net:
