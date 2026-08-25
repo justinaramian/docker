@@ -3,6 +3,9 @@ services:
     image: postgres:17
     container_name: rxresume-postgres
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^17$$"
+      - "wud.watch.digest=true"
     networks:
       - rxresume_net
     environment:
@@ -18,9 +21,11 @@ services:
       retries: 10
 
   reactive-resume:
-    image: amruthpillai/reactive-resume:latest
+    image: amruthpillai/reactive-resume:v5.2.8
     container_name: rxresume
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     networks:
       - rxresume_net
     ports:
