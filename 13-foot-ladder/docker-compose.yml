@@ -2,7 +2,10 @@ services:
   13ft:
     container_name: 13ft-ladder
     hostname: 13ft
-    image: ghcr.io/wasi-master/13ft:latest
+    image: ghcr.io/wasi-master/13ft:0.4.1
     restart: unless-stopped
     ports:
       - "5000:5000"
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
+      - "wud.watch.digest=false"
