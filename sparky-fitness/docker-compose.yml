@@ -3,6 +3,9 @@ services:
     image: postgres:18-alpine
     container_name: sparkyfitness-db
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^18-alpine$$"
+      - "wud.watch.digest=true"
     environment:
       POSTGRES_DB: sparkyfitness
       POSTGRES_USER: sparky
@@ -13,9 +16,11 @@ services:
       - sparkyfitness-network
 
   sparkyfitness-server:
-    image: codewithcj/sparkyfitness_server:latest
+    image: codewithcj/sparkyfitness_server:v1.6.3
     container_name: sparkyfitness-server
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     depends_on:
       - sparkyfitness-db
     environment:
@@ -47,9 +52,11 @@ services:
       - sparkyfitness-network
 
   sparkyfitness-frontend:
-    image: codewithcj/sparkyfitness:latest
+    image: codewithcj/sparkyfitness:v1.6.3
     container_name: sparkyfitness-frontend
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     depends_on:
       - sparkyfitness-server
     ports:
