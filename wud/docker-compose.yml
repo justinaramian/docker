@@ -1,0 +1,48 @@
+services:
+  wud:
+    image: getwud/wud:latest
+    container_name: wud
+    hostname: wud
+    restart: unless-stopped
+    mac_address: 02:42:0a:01:1e:35
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.53
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - wud-store:/store
+    environment:
+      TZ: America/Los_Angeles
+      WUD_LOG_LEVEL: info
+      WUD_PUBLIC_URL: ${WUD_URL}
+
+      # ---------- Watcher: local Docker socket on fredk02 ----------
+      WUD_WATCHER_LOCAL_SOCKET: /var/run/docker.sock
+      WUD_WATCHER_LOCAL_CRON: "0 6 * * *"
+      WUD_WATCHER_LOCAL_WATCHBYDEFAULT: "true"
+      WUD_WATCHER_LOCAL_WATCHEVENTS: "true"
+
+      # ---------- Authentication: Authentik OIDC ----------
+      WUD_AUTH_OIDC_AUTHENTIK_DISCOVERY: ${OIDC_DISCOVERY_URL}
+      WUD_AUTH_OIDC_AUTHENTIK_CLIENTID: ${OIDC_CLIENT_ID}
+      WUD_AUTH_OIDC_AUTHENTIK_CLIENTSECRET: ${CLIENT_SECRET}
+      WUD_AUTH_OIDC_AUTHENTIK_REDIRECT: "true"
+      WUD_AUTH_OIDC_AUTHENTIK_TIMEOUT: "10000"
+
+      # ---------- Trigger: Discord ----------
+      WUD_TRIGGER_DISCORD_HOMELAB_URL: ${DISCORD_WEBHOOK}
+      WUD_TRIGGER_DISCORD_HOMELAB_BOTUSERNAME: WUD
+      WUD_TRIGGER_DISCORD_HOMELAB_CARDCOLOR: "5808327"
+      WUD_TRIGGER_DISCORD_HOMELAB_MODE: batch
+      WUD_TRIGGER_DISCORD_HOMELAB_ONCE: "true"
+      WUD_TRIGGER_DISCORD_HOMELAB_THRESHOLD: all
+      WUD_TRIGGER_DISCORD_HOMELAB_BATCHTITLE: "$${count} container update(s) available"
+      WUD_TRIGGER_DISCORD_HOMELAB_SIMPLETITLE: "Update available for $${name}"
+      WUD_TRIGGER_DISCORD_HOMELAB_SIMPLEBODY: "$${name} can be updated from $${local} to $${remote}"
+
+networks:
+  macvlan_servers:
+    external: true
+
+volumes:
+  wud-store:
