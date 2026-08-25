@@ -1,11 +1,7 @@
-# Published: https://home.<domain> via reverse proxy
-# Auth: Authentik OIDC, auto-login enabled
-# Note: bundles a docker-socket-proxy on host port 2375
-
 services:
   homarr:
     container_name: homarr
-    image: ghcr.io/homarr-labs/homarr:latest
+    image: ghcr.io/homarr-labs/homarr:v1.76.0
     restart: unless-stopped
     mac_address: "02:42:0a:01:1e:32"
     networks:
@@ -18,6 +14,8 @@ services:
     volumes:
       - /opt/appdata/homarr:/appdata
       - /opt/appdata/homarr/certs/ca.crt:/etc/ssl/certs/homarr-ca.crt
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     environment:
       - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_ENCRYPTION_KEY}
       - TZ=America/Los_Angeles
@@ -41,7 +39,7 @@ services:
 
   dockerproxy:
     container_name: dockerproxy-dk02
-    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    image: ghcr.io/tecnativa/docker-socket-proxy:v0.5.0
     restart: unless-stopped
     environment:
       - CONTAINERS=1
@@ -53,6 +51,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - "2375:2375"
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 networks:
   macvlan_servers:
