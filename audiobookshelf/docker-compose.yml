@@ -1,6 +1,6 @@
 services:
   audiobookshelf:
-    image: ghcr.io/advplyr/audiobookshelf:latest
+    image: ghcr.io/advplyr/audiobookshelf:2.36.0
     container_name: audiobookshelf
     mac_address: "02:42:ac:10:0f:24"  # 172.16.15.36
     dns:
@@ -19,6 +19,9 @@ services:
     networks:
       macvlan_media:
         ipv4_address: 172.16.15.36
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
+      - "wud.watch.digest=false"
     restart: unless-stopped
 networks:
   macvlan_media:
