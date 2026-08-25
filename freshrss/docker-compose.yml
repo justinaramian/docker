@@ -1,6 +1,6 @@
 services:
   freshrss:
-    image: lscr.io/linuxserver/freshrss:latest
+    image: ghcr.io/linuxserver/freshrss:1.29.1-ls320
     container_name: fresh-rss
     restart: unless-stopped
     environment:
@@ -11,6 +11,8 @@ services:
       - freshrss_config:/config
     ports:
       - "0.0.0.0:32769:80"
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+-ls\\d+$$"
     logging:
       driver: json-file
       options:
