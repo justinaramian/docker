@@ -1,6 +1,6 @@
 services:
   searxng:
-    image: searxng/searxng:latest
+    image: searxng/searxng:2026.8.22-9fea41204
     container_name: searxng
     restart: unless-stopped
     networks:
@@ -11,6 +11,8 @@ services:
       - /opt/docker/searxng/config:/etc/searxng
     environment:
       - SEARXNG_SECRET=${SEARXNG_SECRET}
+    labels:
+      - "wud.tag.include=^\\d{4}\\.\\d+\\.\\d+-[0-9a-f]+$$"
     cap_drop:
       - ALL
     cap_add:
