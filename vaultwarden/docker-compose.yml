@@ -1,12 +1,10 @@
-# Published: https://vault.<domain> via reverse proxy
-# Auth: Authentik SSO (button mode) + local vault master passwords
-# Data: named docker volume vaultwarden_data — NOT a bind mount
-
 services:
   vaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:v1.37.2
     container_name: vault-warden
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     environment:
       TZ: "America/Los_Angeles"
       DOMAIN: "https://vault.${DOMAIN}"
