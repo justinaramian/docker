@@ -114,7 +114,7 @@ services:
     restart: unless-stopped
 
   readmeabook:
-    image: ghcr.io/kikootwo/readmeabook:v1.2.2
+    image: ghcr.io/kikootwo/readmeabook:1.2.2
     container_name: readmeabook
     mac_address: "02:42:ac:10:0f:25"
     labels:
