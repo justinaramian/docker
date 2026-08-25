@@ -22,6 +22,13 @@ services:
       WUD_WATCHER_LOCAL_WATCHBYDEFAULT: "true"
       WUD_WATCHER_LOCAL_WATCHEVENTS: "true"
 
+      # ---------- Watcher: fredk01 via existing socket proxy ----------
+      WUD_WATCHER_FREDK01_HOST: 10.1.30.171
+      WUD_WATCHER_FREDK01_PORT: "2375"
+      WUD_WATCHER_FREDK01_CRON: "0 6 * * *"
+      WUD_WATCHER_FREDK01_WATCHBYDEFAULT: "true"
+      WUD_WATCHER_FREDK01_WATCHEVENTS: "true"
+
       # ---------- Authentication: Authentik OIDC ----------
       WUD_AUTH_OIDC_AUTHENTIK_DISCOVERY: ${WUD_OIDC_DISCOVERY_URL}
       WUD_AUTH_OIDC_AUTHENTIK_CLIENTID: ${WUD_OIDC_CLIENT_ID}
