@@ -7,6 +7,9 @@ services:
     image: postgres:16-alpine
     container_name: gitea-db
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^16-alpine$$"
+      - "wud.watch.digest=true"
     environment:
       POSTGRES_USER: gitea
       POSTGRES_PASSWORD: ${GITEA_DB_PASSWORD}
@@ -22,9 +25,11 @@ services:
       retries: 5
 
   gitea:
-    image: gitea/gitea:1.24
+    image: gitea/gitea:1.24.7
     container_name: gitea
     restart: unless-stopped
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
     depends_on:
       gitea-db:
         condition: service_healthy
