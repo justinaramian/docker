@@ -103,7 +103,7 @@ services:
         max-file: "3"
 
   guacd:
-    image: guacamole/guacd:1.5.5
+    image: guacamole/guacd:1.6.0
     container_name: patchmon-guacd
     restart: unless-stopped
     read_only: true
