@@ -22,14 +22,14 @@ services:
       WUD_WATCHER_LOCAL_SOCKET: /var/run/docker.sock
       WUD_WATCHER_LOCAL_CRON: "0 6 * * *"
       WUD_WATCHER_LOCAL_WATCHBYDEFAULT: "true"
-      WUD_WATCHER_LOCAL_WATCHEVENTS: "true"
+      WUD_WATCHER_LOCAL_WATCHEVENTS: "false"
 
       # ---------- Watcher: fredk01 via existing socket proxy ----------
       WUD_WATCHER_FREDK01_HOST: 10.1.30.171
       WUD_WATCHER_FREDK01_PORT: "2375"
       WUD_WATCHER_FREDK01_CRON: "0 6 * * *"
       WUD_WATCHER_FREDK01_WATCHBYDEFAULT: "true"
-      WUD_WATCHER_FREDK01_WATCHEVENTS: "true"
+      WUD_WATCHER_FREDK01_WATCHEVENTS: "false"
 
       # ---------- Authentication: Authentik OIDC ----------
       WUD_AUTH_OIDC_AUTHENTIK_DISCOVERY: ${WUD_OIDC_DISCOVERY_URL}
