@@ -2,10 +2,14 @@ services:
   app:
     image: 'jc21/nginx-proxy-manager:2.15.1'
     restart: unless-stopped
-    hostname: frerp02
     container_name: nginx-reverse-proxy-external
     environment:
       TZ: "America/Los_Angeles"
+    labels:
+      wud.watch: "true"
+      wud.tag.include: '^\d+\.\d+\.\d+$$'
+      wud.display.name: "Nginx-Proxy-Manager-External"
+      wud.link.template: 'https://github.com/NginxProxyManager/nginx-proxy-manager/releases/tag/v$${major}.$${minor}.$${patch}'
     volumes:
       - /opt/docker/nginx-reverse-proxy-external/data:/data
       - /opt/docker/nginx-reverse-proxy-external/letsencrypt:/etc/letsencrypt
