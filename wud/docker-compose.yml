@@ -49,6 +49,10 @@ services:
       WUD_TRIGGER_DISCORD_HOMELAB_SIMPLETITLE: "Update available for $${name}"
       WUD_TRIGGER_DISCORD_HOMELAB_SIMPLEBODY: "$${name} can be updated from $${local} to $${remote}\n$${link}"
 
+      # ---------- Registry: GHCR (authenticated to avoid 429s) ----------
+      WUD_REGISTRY_GHCR_PUBLIC_USERNAME: ${WUD_GHCR_USERNAME}
+      WUD_REGISTRY_GHCR_PUBLIC_TOKEN: ${WUD_GHCR_TOKEN}
+
 networks:
   macvlan_servers:
     external: true
