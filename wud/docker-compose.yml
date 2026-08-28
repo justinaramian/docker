@@ -47,7 +47,7 @@ services:
       WUD_TRIGGER_DISCORD_HOMELAB_THRESHOLD: all
       WUD_TRIGGER_DISCORD_HOMELAB_BATCHTITLE: "$${count} container update(s) available"
       WUD_TRIGGER_DISCORD_HOMELAB_SIMPLETITLE: "Update available for $${name}"
-      WUD_TRIGGER_DISCORD_HOMELAB_SIMPLEBODY: "$${name} can be updated from $${local} to $${remote}"
+      WUD_TRIGGER_DISCORD_HOMELAB_SIMPLEBODY=$${name} can be updated from $${local} to $${remote}\n$${link}
 
 networks:
   macvlan_servers:
