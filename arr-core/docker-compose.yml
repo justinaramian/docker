@@ -48,9 +48,11 @@ services:
     restart: unless-stopped
 
   lidarr:
-    image: lscr.io/linuxserver/lidarr:nightly
+    image: ghcr.io/linuxserver/lidarr:3.1.0.4875-ls40
     container_name: lidarr
     mac_address: "02:42:ac:10:0f:17"
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
     dns:
       - 10.1.30.101
       - 10.1.30.102
