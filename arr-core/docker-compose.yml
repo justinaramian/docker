@@ -5,6 +5,7 @@ services:
     mac_address: "02:42:ac:10:0f:15"
     labels:
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
+      - 'wud.link.template=https://github.com/linuxserver/docker-radarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -29,6 +30,7 @@ services:
     mac_address: "02:42:ac:10:0f:16"
     labels:
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
+      - 'wud.link.template=https://github.com/linuxserver/docker-sonarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -53,6 +55,7 @@ services:
     mac_address: "02:42:ac:10:0f:17"
     labels:
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
+      - 'wud.link.template=https://github.com/linuxserver/docker-lidarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -78,6 +81,7 @@ services:
     mac_address: "02:42:ac:10:0f:1a"
     labels:
       - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+-ls\\d+$$"
+      - 'wud.link.template=https://github.com/linuxserver/docker-bazarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -102,6 +106,7 @@ services:
     mac_address: "02:42:ac:10:0f:19"
     labels:
       - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
+      - 'wud.link.template=https://github.com/seerr-team/seerr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -120,7 +125,8 @@ services:
     container_name: readmeabook
     mac_address: "02:42:ac:10:0f:25"
     labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
+      - 'wud.link.template=https://github.com/kikootwo/readmeabook/releases/tag/v$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
