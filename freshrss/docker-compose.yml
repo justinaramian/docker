@@ -11,8 +11,6 @@ services:
       - freshrss_config:/config
     ports:
       - "0.0.0.0:32769:80"
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+-ls\\d+$$"
     logging:
       driver: json-file
       options:
