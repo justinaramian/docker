@@ -13,8 +13,6 @@ services:
       IMMICH_URL: http://10.1.30.46:2283
       PUBLIC_BASE_URL: https://shared-photos.${DOMAIN}
     restart: always
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
 
 networks:
   macvlan_dmz:
