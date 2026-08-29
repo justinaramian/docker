@@ -16,6 +16,11 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["/^(gh|ls)cr\\.io\\/linuxserver\\//"],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?-ls(?<revision>\\d+)$"
+    },
+    {
+      "description": "13ft publishes 1.x image tags that are older than its 0.4.x releases",
+      "matchPackageNames": ["ghcr.io/wasi-master/13ft"],
+      "allowedVersions": "<1.0.0"
     }
   ]
 }
