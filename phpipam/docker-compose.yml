@@ -1,0 +1,73 @@
+services:
+  phpipam-db:
+    image: mariadb:11.4
+    container_name: phpipam-db
+    restart: unless-stopped
+    command: --innodb-buffer-pool-size=256M
+    environment:
+      TZ: America/Los_Angeles
+      MARIADB_ROOT_PASSWORD: ${IPAM_DB_ROOT_PASS}
+      MARIADB_DATABASE: phpipam
+      MARIADB_USER: phpipam
+      MARIADB_PASSWORD: ${IPAM_DB_PASS}
+    volumes:
+      - phpipam-db-data:/var/lib/mysql
+    networks:
+      - phpipam-backend
+
+  phpipam-www:
+    image: phpipam/phpipam-www:v1.7.4
+    container_name: phpipam-www
+    restart: unless-stopped
+    depends_on:
+      - phpipam-db
+    environment:
+      TZ: America/Los_Angeles
+      IPAM_DATABASE_HOST: phpipam-db
+      IPAM_DATABASE_NAME: phpipam
+      IPAM_DATABASE_USER: phpipam
+      IPAM_DATABASE_PASS: ${IPAM_DB_PASS}
+      IPAM_DATABASE_WEBHOST: '%'
+      IPAM_TRUST_X_FORWARDED: 'true'
+      IPAM_DISABLE_INSTALLER: ${IPAM_DISABLE_INSTALLER}
+    volumes:
+      - phpipam-logo:/phpipam/css/images/logo
+      - phpipam-ca:/usr/local/share/ca-certificates:ro
+    networks:
+      phpipam-backend:
+      macvlan_servers:
+        ipv4_address: 10.1.30.40
+        mac_address: 02:42:0a:01:1e:28
+
+  phpipam-cron:
+    image: phpipam/phpipam-cron:v1.7.4
+    container_name: phpipam-cron
+    restart: unless-stopped
+    depends_on:
+      - phpipam-db
+    environment:
+      TZ: America/Los_Angeles
+      IPAM_DATABASE_HOST: phpipam-db
+      IPAM_DATABASE_NAME: phpipam
+      IPAM_DATABASE_USER: phpipam
+      IPAM_DATABASE_PASS: ${IPAM_DB_PASS}
+      IPAM_DATABASE_WEBHOST: '%'
+      SCAN_INTERVAL: 1h
+    volumes:
+      - phpipam-ca:/usr/local/share/ca-certificates:ro
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      - phpipam-backend
+
+networks:
+  phpipam-backend:
+    driver: bridge
+  macvlan_servers:
+    external: true
+
+volumes:
+  phpipam-db-data:
+  phpipam-logo:
+  phpipam-ca:
