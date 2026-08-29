@@ -5,11 +5,6 @@ services:
     container_name: nginx-reverse-proxy-internal
     environment:
       TZ: "America/Los_Angeles"
-    labels:
-      wud.watch: "true"
-      wud.tag.include: '^\d+\.\d+\.\d+$$'
-      wud.display.name: "Nginx-Proxy-Manager-Internal"
-      wud.link.template: 'https://github.com/NginxProxyManager/nginx-proxy-manager/releases/tag/v$${major}.$${minor}.$${patch}'
     volumes:
       - /opt/docker/nginx-reverse-proxy-internal/data:/data
       - /opt/docker/nginx-reverse-proxy-internal/letsencrypt:/etc/letsencrypt
