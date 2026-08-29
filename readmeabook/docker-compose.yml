@@ -1,0 +1,41 @@
+services:
+  readmeabook:
+    image: ghcr.io/kikootwo/readmeabook:1.2.2
+    container_name: readmeabook
+    mac_address: "02:42:ac:10:0f:25"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Los_Angeles
+      - PUBLIC_URL=https://book-request.${DOMAIN}
+      - LOG_LEVEL=info
+      - DISABLE_LOCAL_LOGIN=true
+    volumes:
+      - /opt/appdata/readmeabook/config:/app/config
+      - /opt/appdata/readmeabook/cache:/app/cache
+      - /opt/appdata/readmeabook/pgdata:/var/lib/postgresql/data
+      - /opt/appdata/readmeabook/redis:/var/lib/redis
+      - /mnt/nas/downloads:/downloads
+      - /mnt/nas/audiobooks:/media
+      - /mnt/nas/ebooks:/bookdrop
+      - /mnt:/mnt:rslave
+      - /mnt:/downloads/hostmnt:rslave
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.37
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3030/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+networks:
+  macvlan_media:
+    external: true

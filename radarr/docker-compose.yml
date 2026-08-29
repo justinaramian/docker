@@ -1,0 +1,26 @@
+services:
+  radarr:
+    image: ghcr.io/linuxserver/radarr:6.3.0.10514-ls314
+    container_name: radarr
+    mac_address: "02:42:ac:10:0f:15"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /opt/appdata/radarr:/config
+      - /mnt/nas/movies:/movies
+      - /mnt/nas/downloads:/downloads
+      - /mnt:/mnt:rslave
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.21
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true

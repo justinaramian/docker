@@ -1,0 +1,25 @@
+services:
+  bazarr:
+    image: ghcr.io/linuxserver/bazarr:v1.6.0-ls360
+    container_name: bazarr
+    mac_address: "02:42:ac:10:0f:1a"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /opt/appdata/bazarr:/config
+      - /mnt/nas/movies:/movies
+      - /mnt/nas/tv:/tv
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.26
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true

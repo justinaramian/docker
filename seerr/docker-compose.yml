@@ -1,0 +1,22 @@
+services:
+  seerr:
+    image: ghcr.io/seerr-team/seerr:v3.4.1
+    container_name: seerr
+    init: true
+    mac_address: "02:42:ac:10:0f:19"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - TZ=America/Los_Angeles
+    volumes:
+      - /opt/appdata/jellyseerr:/app/config
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.25
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true

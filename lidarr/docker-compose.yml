@@ -1,0 +1,27 @@
+services:
+  lidarr:
+    image: ghcr.io/linuxserver/lidarr:3.1.0.4875-ls40
+    container_name: lidarr
+    mac_address: "02:42:ac:10:0f:17"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /opt/appdata/lidarr:/config
+      - /mnt/nas/music:/music
+      - /mnt/nas/music-staging:/music-staging
+      - /mnt/nas/downloads:/downloads
+      - /mnt:/mnt:rslave
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.23
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true
