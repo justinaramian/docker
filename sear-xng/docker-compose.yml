@@ -11,8 +11,6 @@ services:
       - /opt/docker/searxng/config:/etc/searxng
     environment:
       - SEARXNG_SECRET=${SEARXNG_SECRET}
-    labels:
-      - "wud.tag.include=^\\d{4}\\.\\d+\\.\\d+-[0-9a-f]+$$"
     cap_drop:
       - ALL
     cap_add:
