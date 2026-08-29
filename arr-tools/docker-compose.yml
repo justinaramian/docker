@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
 
   tdarr:
-    image: ghcr.io/haveagitgat/tdarr:2.86.1
+    image: ghcr.io/haveagitgat/tdarr:2.86.01
     container_name: tdarr
     mac_address: "02:42:ac:10:0f:1f"
     labels:
@@ -71,9 +71,12 @@ services:
     restart: unless-stopped
 
   tracearr:
-    image: ghcr.io/connorgallopo/tracearr:supervised
+    image: ghcr.io/connorgallopo/tracearr:supervised-1.1.2
     container_name: tracearr
     mac_address: "02:42:ac:10:0f:20"
+    labels:
+      - "wud.tag.include=^supervised-\\d+\\.\\d+\\.\\d+$$"
+      - 'wud.link.template=https://github.com/connorgallopo/tracearr/releases'
     dns:
       - 10.1.30.101
       - 10.1.30.102
