@@ -1,0 +1,25 @@
+services:
+  beets:
+    image: ghcr.io/linuxserver/beets:2.13.1-ls349
+    container_name: beets
+    mac_address: "02:42:ac:10:0f:22"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /opt/appdata/beets:/config
+      - /mnt/nas/music:/music
+      - /mnt/nas/music-staging:/music-staging
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.34
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true
