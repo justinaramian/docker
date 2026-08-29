@@ -43,7 +43,7 @@ services:
     mac_address: "02:42:ac:10:0f:1f"
     labels:
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
-      - 'wud.link.template=https://github.com/HaveAGitGat/Tdarr/releases/tag/$${raw}'
+      - 'wud.link.template=https://tdarr.io/download/'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -71,7 +71,7 @@ services:
     restart: unless-stopped
 
   tracearr:
-    image: ghcr.io/connorgallopo/tracearr:supervised-1.1.2
+    image: ghcr.io/connorgallopo/tracearr:supervised-1.3.0
     container_name: tracearr
     mac_address: "02:42:ac:10:0f:20"
     labels:
