@@ -1,8 +1,11 @@
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8
+    image: ghcr.io/recyclarr/recyclarr:8.7.1
     container_name: recyclarr
     mac_address: "02:42:ac:10:0f:1b"
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
+      - 'wud.link.template=https://github.com/recyclarr/recyclarr/releases/tag/v$${raw}'
     environment:
       - TZ=America/Los_Angeles
     volumes:
