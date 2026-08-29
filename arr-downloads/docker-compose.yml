@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:2.5.2.5491-ls156
+    image: ghcr.io/linuxserver/prowlarr:2.5.2.5491-ls157
     container_name: prowlarr
     mac_address: "02:42:ac:10:0f:18"  # 172.16.15.24
     labels:
