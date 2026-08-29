@@ -6,6 +6,7 @@ services:
     command: --innodb-buffer-pool-size=256M
     environment:
       TZ: America/Los_Angeles
+      MARIADB_AUTO_UPGRADE: 1
       MARIADB_ROOT_PASSWORD: ${IPAM_DB_ROOT_PASS}
       MARIADB_DATABASE: phpipam
       MARIADB_USER: phpipam
