@@ -19,9 +19,6 @@ services:
     networks:
       macvlan_media:
         ipv4_address: 172.16.15.36
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
-      - "wud.watch.digest=false"
     restart: unless-stopped
 networks:
   macvlan_media:
