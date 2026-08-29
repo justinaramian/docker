@@ -10,9 +10,7 @@ services:
       - "7007:7007"
     networks:
       - dozzle_agent_net
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
-
+      
 networks:
   dozzle_agent_net:
     driver: bridge
