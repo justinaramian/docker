@@ -3,8 +3,6 @@ services:
     image: ghcr.io/lovelaze/nebula-sync:v0.11.2
     container_name: nebula-sync
     restart: unless-stopped
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     environment:
       PRIMARY: "http://${PIHOLE_PRIMARY}.${DOMAIN}|${PIHOLE_PASSWORD}"
       REPLICAS: "http://${PIHOLE_REPLICA}.${DOMAIN}|${PIHOLE_PASSWORD}"
