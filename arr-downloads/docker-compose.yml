@@ -4,8 +4,6 @@ services:
     container_name: sabnzbd
     mac_address: "02:42:ac:10:0f:1e"  # 172.16.15.30
     labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+-ls\\d+$$"
-      - 'wud.link.template=https://github.com/linuxserver/docker-sabnzbd/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -27,8 +25,6 @@ services:
     container_name: prowlarr
     mac_address: "02:42:ac:10:0f:18"  # 172.16.15.24
     labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
-      - 'wud.link.template=https://github.com/linuxserver/docker-prowlarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -49,8 +45,6 @@ services:
     container_name: flaresolverr
     mac_address: "02:42:ac:10:0f:1d"  # 172.16.15.29
     labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
-      - 'wud.link.template=https://github.com/FlareSolverr/FlareSolverr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
