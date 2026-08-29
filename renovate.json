@@ -21,6 +21,21 @@
       "description": "13ft publishes 1.x image tags that are older than its 0.4.x releases",
       "matchPackageNames": ["ghcr.io/wasi-master/13ft"],
       "allowedVersions": "<1.0.0"
+    },
+    {
+      "description": "SparkyFitness frontend and server share a version",
+      "matchPackageNames": ["/^codewithcj\\/sparkyfitness/"],
+      "groupName": "sparkyfitness"
+    },
+    {
+      "description": "Immich server and machine-learning must move together",
+      "matchPackageNames": ["/^ghcr\\.io\\/immich-app\\/immich-/"],
+      "groupName": "immich"
+    },
+    {
+      "description": "Authentik server and worker share an image and version",
+      "matchPackageNames": ["/^ghcr\\.io\\/goauthentik\\//"],
+      "groupName": "authentik"
     }
   ]
 }
