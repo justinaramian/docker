@@ -1,6 +1,6 @@
 services:
   sabnzbd:
-    image: ghcr.io/linuxserver/sabnzbd:5.1.0-ls266
+    image: ghcr.io/linuxserver/sabnzbd:5.1.2-ls270
     container_name: sabnzbd
     mac_address: "02:42:ac:10:0f:1e"  # 172.16.15.30
     labels:
