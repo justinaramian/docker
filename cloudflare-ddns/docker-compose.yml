@@ -8,8 +8,6 @@ services:
     cap_drop: [ "ALL" ]
     security_opt:
       - no-new-privileges:true
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
     environment:
       CLOUDFLARE_API_TOKEN: "${CLOUDFLARE_API_TOKEN}"
       DOMAINS: "${CLOUDFLARE_DOMAINS}"
