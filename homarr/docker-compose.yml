@@ -14,8 +14,6 @@ services:
     volumes:
       - /opt/appdata/homarr:/appdata
       - /opt/appdata/homarr/certs/ca.crt:/etc/ssl/certs/homarr-ca.crt
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
     environment:
       - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_ENCRYPTION_KEY}
       - TZ=America/Los_Angeles
@@ -51,8 +49,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - "2375:2375"
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 networks:
   macvlan_servers:
