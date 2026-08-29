@@ -3,9 +3,6 @@ services:
     image: ghcr.io/linuxserver/radarr:6.3.0.10514-ls314
     container_name: radarr
     mac_address: "02:42:ac:10:0f:15"
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
-      - 'wud.link.template=https://github.com/linuxserver/docker-radarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -28,9 +25,6 @@ services:
     image: ghcr.io/linuxserver/sonarr:4.0.19.2979-ls322
     container_name: sonarr
     mac_address: "02:42:ac:10:0f:16"
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
-      - 'wud.link.template=https://github.com/linuxserver/docker-sonarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -53,9 +47,6 @@ services:
     image: ghcr.io/linuxserver/lidarr:3.1.0.4875-ls40
     container_name: lidarr
     mac_address: "02:42:ac:10:0f:17"
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+\\.\\d+-ls\\d+$$"
-      - 'wud.link.template=https://github.com/linuxserver/docker-lidarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -79,9 +70,6 @@ services:
     image: ghcr.io/linuxserver/bazarr:v1.6.0-ls360
     container_name: bazarr
     mac_address: "02:42:ac:10:0f:1a"
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+-ls\\d+$$"
-      - 'wud.link.template=https://github.com/linuxserver/docker-bazarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -104,9 +92,6 @@ services:
     container_name: seerr
     init: true
     mac_address: "02:42:ac:10:0f:19"
-    labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
-      - 'wud.link.template=https://github.com/seerr-team/seerr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -124,9 +109,6 @@ services:
     image: ghcr.io/kikootwo/readmeabook:1.2.2
     container_name: readmeabook
     mac_address: "02:42:ac:10:0f:25"
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
-      - 'wud.link.template=https://github.com/kikootwo/readmeabook/releases/tag/v$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
