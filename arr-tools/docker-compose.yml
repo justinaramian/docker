@@ -38,9 +38,12 @@ services:
     restart: unless-stopped
 
   tdarr:
-    image: ghcr.io/haveagitgat/tdarr:latest
+    image: ghcr.io/haveagitgat/tdarr:2.86.1
     container_name: tdarr
     mac_address: "02:42:ac:10:0f:1f"
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
+      - 'wud.link.template=https://github.com/HaveAGitGat/Tdarr/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
