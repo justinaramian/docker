@@ -1,0 +1,20 @@
+services:
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:v3.5.0
+    container_name: flaresolverr
+    mac_address: "02:42:ac:10:0f:1d"  # 172.16.15.29
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - TZ=America/Los_Angeles
+      - LOG_LEVEL=info
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.29
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true

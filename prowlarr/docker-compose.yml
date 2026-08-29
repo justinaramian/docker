@@ -1,0 +1,23 @@
+services:
+  prowlarr:
+    image: ghcr.io/linuxserver/prowlarr:2.5.2.5491-ls157
+    container_name: prowlarr
+    mac_address: "02:42:ac:10:0f:18"  # 172.16.15.24
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /opt/appdata/prowlarr:/config
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.24
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true
