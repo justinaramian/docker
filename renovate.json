@@ -38,6 +38,11 @@
       "groupName": "authentik"
     },
     {
+      "description": "phpIPAM www and cron share a version",
+      "matchPackageNames": ["/^phpipam\\/phpipam-/"],
+      "groupName": "phpipam"
+    },
+    {
       "description": "Low-impact services: automerge all update types",
       "matchFileNames": [
         "sear-xng/**",
