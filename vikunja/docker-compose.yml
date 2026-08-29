@@ -6,8 +6,6 @@ services:
   vikunja:
     image: vikunja/vikunja:2.5.0
     container_name: vikunja
-    labels:
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
     environment:
       VIKUNJA_SERVICE_PUBLICURL: "https://task.${DOMAIN}/"
       VIKUNJA_SERVICE_SECRET: "${VIKUNJA_SERVICE_SECRET}"
@@ -42,9 +40,6 @@ services:
   vikunja-db:
     image: postgres:18
     container_name: vikunja-db
-    labels:
-      - "wud.tag.include=^18$$"
-      - "wud.watch.digest=true"
     environment:
       POSTGRES_USER: "vikunja"
       POSTGRES_PASSWORD: "${VIKUNJA_DB_PASSWORD}"
