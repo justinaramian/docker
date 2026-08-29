@@ -1,0 +1,102 @@
+services:
+  tracearr:
+    image: ghcr.io/connorgallopo/tracearr:2.2.2
+    container_name: tracearr
+    mac_address: "02:42:ac:10:0f:20"
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    mem_limit: 2g
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - TZ=America/Los_Angeles
+      - LOG_LEVEL=info
+      - DATABASE_URL=postgres://tracearr:${DB_PASSWORD}@172.16.15.39:5432/tracearr
+      - REDIS_URL=redis://172.16.15.40:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - CORS_ORIGIN=https://tracearr.${DOMAIN}
+      - TRUST_PROXY=true
+      - OIDC_ISSUER_URL=https://auth.${DOMAIN}/application/o/tracearr/
+      - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      - OIDC_PROVIDER_NAME=Authentik
+    volumes:
+      - tracearr_backups:/data/backup
+      - tracearr_cache:/app/data
+    depends_on:
+      tracearr-db:
+        condition: service_healthy
+      tracearr-redis:
+        condition: service_healthy
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.38
+    restart: unless-stopped
+
+  tracearr-db:
+    image: timescale/timescaledb-ha:pg18.1-ts2.25.0
+    container_name: tracearr-db
+    mac_address: "02:42:ac:10:0f:27"
+    shm_size: 512mb
+    mem_limit: 2g
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    command: >
+      postgres
+      -c timescaledb.license=timescale
+      -c timescaledb.max_tuples_decompressed_per_dml_transaction=0
+      -c max_locks_per_transaction=4096
+      -c max_connections=150
+      -c timescaledb.telemetry_level=off
+    environment:
+      - TZ=America/Los_Angeles
+      - POSTGRES_USER=tracearr
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=tracearr
+    volumes:
+      - timescale_data:/home/postgres/pgdata/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tracearr"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.39
+    restart: unless-stopped
+
+  tracearr-redis:
+    image: redis:8-alpine
+    container_name: tracearr-redis
+    mac_address: "02:42:ac:10:0f:28"
+    command: redis-server --appendonly yes
+    environment:
+      - TZ=America/Los_Angeles
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.40
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true
+
+volumes:
+  tracearr_backups:
+  tracearr_cache:
+  timescale_data:
+  redis_data:
