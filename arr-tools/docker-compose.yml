@@ -86,9 +86,12 @@ services:
     restart: unless-stopped
 
   beets:
-    image: lscr.io/linuxserver/beets:latest
+    image: ghcr.io/linuxserver/beets:2.13.1-ls349
     container_name: beets
     mac_address: "02:42:ac:10:0f:22"
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+-ls\\d+$$"
+      - 'wud.link.template=https://github.com/linuxserver/docker-beets/releases/tag/$${raw}'
     dns:
       - 10.1.30.101
       - 10.1.30.102
