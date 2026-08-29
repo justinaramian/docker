@@ -1,0 +1,34 @@
+services:
+  renovate:
+    image: renovate/renovate:44.51.0
+    container_name: renovate
+    hostname: renovate
+    restart: unless-stopped
+    command: ["bash", "-c", "while true; do renovate; sleep 21600; done"]
+    environment:
+      TZ: America/Los_Angeles
+      LOG_LEVEL: info
+      RENOVATE_PLATFORM: gitea
+      RENOVATE_ENDPOINT: https://gitea.${DOMAIN}/api/v1/
+      RENOVATE_TOKEN: ${RENOVATE_GITEA_TOKEN}
+      RENOVATE_GIT_AUTHOR: "Renovate Bot <renovate@${DOMAIN}>"
+      RENOVATE_REPOSITORIES: homelab/docker
+      RENOVATE_ONBOARDING: "true"
+      RENOVATE_ONBOARDING_CONFIG: '{"extends":["config:recommended"]}'
+      RENOVATE_BASE_DIR: /tmp/renovate
+      RENOVATE_REPOSITORY_CACHE: enabled
+      RENOVATE_GITHUB_COM_TOKEN: ${RENOVATE_GITHUB_TOKEN}
+      RENOVATE_HOST_RULES: '[{"hostType":"docker","matchHost":"ghcr.io","username":"${WUD_GHCR_USERNAME}","password":"${WUD_GHCR_TOKEN}"}]'
+    volumes:
+      - renovate-cache:/tmp/renovate
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.54
+        mac_address: 02:42:0a:01:1e:36
+
+volumes:
+  renovate-cache:
+
+networks:
+  macvlan_servers:
+    external: true
