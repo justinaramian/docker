@@ -7,9 +7,15 @@
   "packageRules": [
     {
       "description": "Databases: majors need a data migration, handle manually",
-      "matchPackageNames": ["/postgres/", "/redis/", "/mariadb/", "/mysql/"],
+      "matchPackageNames": ["/postgres/", "/redis/", "/mariadb/", "/mysql/", "/valkey/"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "description": "LinuxServer.io images use a non-semver tag format",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["/^(gh|ls)cr\\.io\\/linuxserver\\//"],
+      "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?-ls(?<revision>\\d+)$"
     }
   ]
 }
