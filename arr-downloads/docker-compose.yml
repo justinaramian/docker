@@ -3,7 +3,6 @@ services:
     image: ghcr.io/linuxserver/sabnzbd:5.1.2-ls270
     container_name: sabnzbd
     mac_address: "02:42:ac:10:0f:1e"  # 172.16.15.30
-    labels:
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -24,7 +23,6 @@ services:
     image: ghcr.io/linuxserver/prowlarr:2.5.2.5491-ls157
     container_name: prowlarr
     mac_address: "02:42:ac:10:0f:18"  # 172.16.15.24
-    labels:
     dns:
       - 10.1.30.101
       - 10.1.30.102
@@ -44,7 +42,6 @@ services:
     image: ghcr.io/flaresolverr/flaresolverr:v3.5.0
     container_name: flaresolverr
     mac_address: "02:42:ac:10:0f:1d"  # 172.16.15.29
-    labels:
     dns:
       - 10.1.30.101
       - 10.1.30.102
