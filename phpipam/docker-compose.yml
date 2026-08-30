@@ -60,7 +60,10 @@ services:
       - NET_ADMIN
       - NET_RAW
     networks:
-      - phpipam-backend
+      phpipam-backend:
+      macvlan_servers:
+        ipv4_address: 10.1.30.41
+        mac_address: 02:42:0a:01:1e:29
 
 networks:
   phpipam-backend:
