@@ -1,6 +1,6 @@
 services:
   gitea-db:
-    image: postgres:16-alpine
+    image: postgres:16.15-alpine
     container_name: gitea-db
     restart: unless-stopped
     environment:
