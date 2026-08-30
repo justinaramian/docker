@@ -1,6 +1,6 @@
 services:
   renovate:
-    image: renovate/renovate:44.51.2
+    image: renovate/renovate:44.52.0
     container_name: renovate
     hostname: renovate
     restart: unless-stopped
