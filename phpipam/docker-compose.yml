@@ -17,7 +17,7 @@ services:
       - phpipam-backend
 
   phpipam-www:
-    image: phpipam/phpipam-www:v1.7.4
+    image: phpipam/phpipam-www:v1.8.2
     container_name: phpipam-www
     restart: unless-stopped
     depends_on:
@@ -41,7 +41,7 @@ services:
         mac_address: 02:42:0a:01:1e:28
 
   phpipam-cron:
-    image: phpipam/phpipam-cron:v1.7.4
+    image: phpipam/phpipam-cron:v1.8.2
     container_name: phpipam-cron
     restart: unless-stopped
     depends_on:
