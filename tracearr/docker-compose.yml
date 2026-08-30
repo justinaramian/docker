@@ -1,6 +1,6 @@
 services:
   tracearr:
-    image: ghcr.io/connorgallopo/tracearr:2.2.2
+    image: ghcr.io/connorgallopo/tracearr:2.2.3
     container_name: tracearr
     mac_address: "02:42:ac:10:0f:20"
     dns:
