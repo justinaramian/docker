@@ -4,7 +4,7 @@
 
 services:
   vikunja:
-    image: vikunja/vikunja:2.5.0
+    image: vikunja/vikunja:2.6.0
     container_name: vikunja
     environment:
       VIKUNJA_SERVICE_PUBLICURL: "https://task.${DOMAIN}/"
