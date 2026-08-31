@@ -52,7 +52,8 @@
         "freshrss/**",
         "dozzle/**",
         "dockerproxy/**",
-        "cloudflare-ddns/**"
+        "cloudflare-ddns/**",
+        "stirling-pdf/**"
       ],
       "automerge": true
     }
