@@ -54,7 +54,8 @@
         "dockerproxy/**",
         "cloudflare-ddns/**",
         "stirling-pdf/**",
-        "so-crates/**"
+        "so-crates/**",
+        "it-tools/**"
       ],
       "automerge": true
     }
