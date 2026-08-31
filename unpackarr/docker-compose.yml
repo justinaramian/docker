@@ -1,6 +1,6 @@
 services:
   unpackerr:
-    image: golift/unpackerr:0.15.2
+    image: golift/unpackerr:v0.16.1
     container_name: unpackerr
     mac_address: "02:42:ac:10:0f:1c"
     environment:
