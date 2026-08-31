@@ -1,0 +1,31 @@
+services:
+  so-crates:
+    image: ghcr.io/dougburks/so-crates:4.1.0
+    container_name: so-crates
+    hostname: so-crates
+    restart: unless-stopped
+    mac_address: 02:42:0a:01:1e:37
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.55
+    environment:
+      DATA_DIR: /data
+      BIND_ADDRESS: 0.0.0.0
+      PORT: "8000"
+      TZ: America/Los_Angeles
+    volumes:
+      - /opt/stacks/so-crates/data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 6G
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/socrates.html || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+networks:
+  macvlan_servers:
+    external: true
