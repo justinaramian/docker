@@ -1,0 +1,28 @@
+services:
+  it-tools:
+    image: ghcr.io/sharevb/it-tools:2026.7.11
+    container_name: it-tools
+    hostname: it-tools
+    restart: unless-stopped
+    mac_address: 02:42:0a:01:1e:38
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.56
+    environment:
+      PORT: "8080"
+      BASE_URL: /
+      TZ: America/Los_Angeles
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+networks:
+  macvlan_servers:
+    external: true
