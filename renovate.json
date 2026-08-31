@@ -53,7 +53,8 @@
         "dozzle/**",
         "dockerproxy/**",
         "cloudflare-ddns/**",
-        "stirling-pdf/**"
+        "stirling-pdf/**",
+        "so-crates/**"
       ],
       "automerge": true
     }
