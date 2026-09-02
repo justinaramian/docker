@@ -1,6 +1,6 @@
 services:
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:2.5.2.5491-ls157
+    image: ghcr.io/linuxserver/prowlarr:2.5.2.5491-ls158
     container_name: prowlarr
     mac_address: "02:42:ac:10:0f:18"  # 172.16.15.24
     dns:
