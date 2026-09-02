@@ -58,6 +58,12 @@
         "it-tools/**"
       ],
       "automerge": true
+    },
+    {
+      "description": "Renovate itself: automerge minor and patch, majors need review",
+      "matchPackageNames": ["renovate/renovate", "ghcr.io/renovatebot/renovate"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true
     }
   ]
 }
