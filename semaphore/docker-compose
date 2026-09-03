@@ -1,0 +1,32 @@
+services:
+  semaphore:
+    image: semaphoreui/semaphore:v2.19.12
+    container_name: semaphore
+    hostname: semaphore
+    restart: unless-stopped
+    mac_address: 02:42:0a:01:1e:2d
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.45
+    environment:
+      TZ: America/Los_Angeles
+      SEMAPHORE_DB_DIALECT: sqlite
+      SEMAPHORE_DB_HOST: /var/lib/semaphore/database.sqlite
+      SEMAPHORE_ADMIN: ${SEMAPHORE_ADMIN}
+      SEMAPHORE_ADMIN_NAME: ${SEMAPHORE_ADMIN_NAME}
+      SEMAPHORE_ADMIN_EMAIL: ${SEMAPHORE_ADMIN_EMAIL}
+      SEMAPHORE_ADMIN_PASSWORD: ${SEMAPHORE_ADMIN_PASSWORD}
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: ${SEMAPHORE_ACCESS_KEY_ENCRYPTION}
+      SEMAPHORE_COOKIE_HASH: ${SEMAPHORE_COOKIE_HASH}
+      SEMAPHORE_COOKIE_ENCRYPTION: ${SEMAPHORE_COOKIE_ENCRYPTION}
+      SEMAPHORE_WEB_ROOT: https://${DOMAIN}
+      SEMAPHORE_OIDC_PROVIDERS: ${SEMAPHORE_OIDC_PROVIDERS}
+
+    volumes:
+      - /opt/stacks/semaphore/etc:/etc/semaphore
+      - /opt/stacks/semaphore/lib:/var/lib/semaphore
+      - /opt/stacks/semaphore/tmp:/tmp/semaphore
+
+networks:
+  macvlan_servers:
+    external: true
