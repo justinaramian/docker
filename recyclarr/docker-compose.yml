@@ -1,6 +1,6 @@
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8.7.1
+    image: ghcr.io/recyclarr/recyclarr:8.7.2
     container_name: recyclarr
     mac_address: "02:42:ac:10:0f:1b"
     environment:
