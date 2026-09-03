@@ -21,6 +21,7 @@ services:
       SEMAPHORE_COOKIE_ENCRYPTION: ${SEMAPHORE_COOKIE_ENCRYPTION}
       SEMAPHORE_WEB_ROOT: https://${DOMAIN}
       SEMAPHORE_OIDC_PROVIDERS: ${SEMAPHORE_OIDC_PROVIDERS}
+      SEMAPHORE_PASSWORD_LOGIN_DISABLED: "true"
 
     volumes:
       - /opt/stacks/semaphore/etc:/etc/semaphore
