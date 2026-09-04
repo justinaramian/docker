@@ -1,7 +1,7 @@
 services:
   immich-public-proxy:
     container_name: immich_public_proxy
-    image: alangrainger/immich-public-proxy:3.3.0
+    image: alangrainger/immich-public-proxy:3.3.1
     networks:
       macvlan_dmz:
         ipv4_address: 172.16.97.210
