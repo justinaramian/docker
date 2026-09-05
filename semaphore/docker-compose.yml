@@ -10,7 +10,7 @@ services:
       - 10.1.30.102
       - 10.1.30.103
     dns_search:
-      - ${DNS_Search}
+      - ${DNS_SEARCH}
     networks:
       macvlan_servers:
         ipv4_address: 10.1.30.45
