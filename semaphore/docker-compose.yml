@@ -5,6 +5,12 @@ services:
     hostname: semaphore
     restart: unless-stopped
     mac_address: 02:42:0a:01:1e:2d
+    dns:
+      - 10.1.30.101
+      - 10.1.30.102
+      - 10.1.30.103
+    dns_search:
+      - ${DNS_Search}
     networks:
       macvlan_servers:
         ipv4_address: 10.1.30.45
