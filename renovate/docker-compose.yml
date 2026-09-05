@@ -7,7 +7,7 @@ services:
     command: ["bash", "-c", "while true; do renovate; sleep 21600; done"]
     environment:
       TZ: America/Los_Angeles
-      LOG_LEVEL: info
+      LOG_LEVEL: debug
       RENOVATE_PLATFORM: gitea
       RENOVATE_ENDPOINT: https://gitea.${DOMAIN}/api/v1/
       RENOVATE_TOKEN: ${RENOVATE_GITEA_TOKEN}
