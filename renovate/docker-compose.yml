@@ -18,7 +18,7 @@ services:
       RENOVATE_BASE_DIR: /tmp/renovate
       RENOVATE_REPOSITORY_CACHE: enabled
       RENOVATE_GITHUB_COM_TOKEN: ${RENOVATE_GITHUB_TOKEN}
-      RENOVATE_HOST_RULES: '[{"hostType":"docker","matchHost":"ghcr.io","username":"${WUD_GHCR_USERNAME}","password":"${WUD_GHCR_TOKEN}"}]'
+      RENOVATE_HOST_RULES: '[{"hostType":"docker","matchHost":"ghcr.io","username":"${GHCR_USERNAME}","password":"${GHCR_TOKEN}"}]'
     volumes:
       - renovate-cache:/tmp/renovate
     networks:
