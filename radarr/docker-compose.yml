@@ -1,6 +1,6 @@
 services:
   radarr:
-    image: ghcr.io/linuxserver/radarr:6.3.0.10514-ls314
+    image: ghcr.io/linuxserver/radarr:6.3.0.10514-ls315
     container_name: radarr
     mac_address: "02:42:ac:10:0f:15"
     dns:
