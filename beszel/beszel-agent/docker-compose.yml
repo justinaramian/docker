@@ -1,0 +1,14 @@
+   services:
+     beszel-agent:
+       image: henrygd/beszel-agent:0.19.0
+       container_name: beszel-agent
+       restart: unless-stopped
+       network_mode: host
+       volumes:
+         - /opt/stacks/beszel-agent/data:/var/lib/beszel-agent
+         - /var/run/docker.sock:/var/run/docker.sock:ro
+       environment:
+         LISTEN: 45876
+         HUB_URL: http://10.1.30.44:8090
+         KEY: ${BESZEL_KEY}
+         TOKEN: ${BESZEL_TOKEN}
