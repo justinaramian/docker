@@ -1,7 +1,3 @@
-# Published: https://task.<domain> via reverse proxy
-# Auth: Authentik OIDC only — local login disabled
-# Note: reads an additional config.yml bind-mounted from the host
-
 services:
   vikunja:
     image: vikunja/vikunja:2.6.0
@@ -32,6 +28,7 @@ services:
       vikunja_internal: {}
       macvlan_servers:
         ipv4_address: 10.1.30.51
+        mac_address: 02:42:0a:01:1e:33
     depends_on:
       vikunja-db:
         condition: service_healthy
