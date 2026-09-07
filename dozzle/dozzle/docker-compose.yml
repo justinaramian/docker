@@ -13,14 +13,13 @@ services:
       DOZZLE_REMOTE_AGENT: 10.1.30.171:7007
       DOZZLE_AUTH_PROVIDER: forward-proxy
       DOZZLE_AUTH_LOGOUT_URL: ${DOZZLE_AUTH_LOGOUT_URL}
-    ports:
-      - "8888:8080"
     networks:
-      - dozzle_net
+      macvlan_servers:
+        ipv4_address: 10.1.30.43
 
 networks:
-  dozzle_net:
-    driver: bridge
+  macvlan_servers:
+    external: true
 
 volumes:
   dozzle_data:
