@@ -1,6 +1,6 @@
 services:
   beets:
-    image: ghcr.io/linuxserver/beets:2.13.1-ls349
+    image: ghcr.io/linuxserver/beets:2.14.0-ls351
     container_name: beets
     mac_address: "02:42:ac:10:0f:22"
     dns:
