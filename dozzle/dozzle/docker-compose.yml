@@ -3,6 +3,7 @@ services:
     image: amir20/dozzle:v10.10.0
     container_name: dozzle
     restart: unless-stopped
+    mac_address: 02:42:0a:01:1e:2b
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - dozzle_data:/data
