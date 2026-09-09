@@ -1,6 +1,6 @@
 services:
   semaphore:
-    image: semaphoreui/semaphore:v2.19.12
+    image: semaphoreui/semaphore:v2.19.14
     container_name: semaphore
     hostname: semaphore
     restart: unless-stopped
