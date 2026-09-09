@@ -1,6 +1,6 @@
 services:
   lidarr:
-    image: ghcr.io/linuxserver/lidarr:3.1.0.4875-ls40
+    image: ghcr.io/linuxserver/lidarr:3.1.0.4875-ls41
     container_name: lidarr
     mac_address: "02:42:ac:10:0f:17"
     dns:
