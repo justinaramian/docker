@@ -1,6 +1,6 @@
 services:
   tdarr:
-    image: ghcr.io/haveagitgat/tdarr:2.86.01
+    image: ghcr.io/haveagitgat/tdarr:2.87.01
     container_name: tdarr
     mac_address: "02:42:ac:10:0f:1f"
     dns:
