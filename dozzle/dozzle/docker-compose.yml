@@ -1,6 +1,6 @@
 services:
   dozzle:
-    image: amir20/dozzle:v10.10.0
+    image: amir20/dozzle:v11.0.0
     container_name: dozzle
     restart: unless-stopped
     mac_address: 02:42:0a:01:1e:2b
