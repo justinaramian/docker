@@ -1,0 +1,46 @@
+services:
+  backend:
+    image: ghcr.io/pouzor/homelable-backend:3.4.1
+    container_name: homelable-backend
+    restart: unless-stopped
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      SQLITE_PATH: /app/data/homelab.db
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      AUTH_MODE: local
+      AUTH_USERNAME: ${AUTH_USERNAME}
+      AUTH_PASSWORD_HASH: ${AUTH_PASSWORD_HASH}
+      SCANNER_RANGES: '["10.1.30.0/24"]'
+    volumes:
+      - homelable_data:/app/data
+    cap_add:
+      - NET_RAW
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.58
+        mac_address: "02:42:0a:01:1e:3a"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+
+  frontend:
+    image: ghcr.io/pouzor/homelable-frontend:3.4.1
+    container_name: homelable-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.57
+        mac_address: "02:42:0a:01:1e:39"
+
+volumes:
+  homelable_data:
+
+networks:
+  macvlan_servers:
+    external: true
