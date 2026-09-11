@@ -44,6 +44,11 @@
       "groupName": "phpipam"
     },
     {
+      "description": "Homelable backend and frontend share a version",
+      "matchPackageNames": ["/^ghcr\\.io\\/pouzor\\/homelable-/"],
+      "groupName": "homelable"
+    },
+    {
       "description": "Low-impact services: automerge all update types",
       "matchFileNames": [
         "sear-xng/**",
