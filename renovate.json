@@ -54,6 +54,7 @@
         "dockerproxy/**",
         "cloudflare-ddns/**",
         "stirling-pdf/**",
+        "homelable/**",
         "so-crates/**",
         "it-tools/**"
       ],
