@@ -8,8 +8,9 @@ services:
     environment:
       TZ: America/Los_Angeles
       LOG_LEVEL: info
+      RENOVATE_CONFIG_FILE: /usr/src/app/config.js
       RENOVATE_PLATFORM: gitea
-      RENOVATE_ENDPOINT: https://gitea.${DOMAIN}/api/v1/
+      RENOVATE_ENDPOINT: https://${GITEA_HOST}/api/v1/
       RENOVATE_TOKEN: ${RENOVATE_GITEA_TOKEN}
       RENOVATE_GIT_AUTHOR: "Renovate Bot <renovate@${DOMAIN}>"
       RENOVATE_REPOSITORIES: homelab/docker
@@ -17,10 +18,13 @@ services:
       RENOVATE_ONBOARDING_CONFIG: '{"extends":["config:recommended"]}'
       RENOVATE_BASE_DIR: /tmp/renovate
       RENOVATE_REPOSITORY_CACHE: enabled
-      RENOVATE_GITHUB_COM_TOKEN: ${RENOVATE_GITHUB_TOKEN}
-      RENOVATE_HOST_RULES: '[{"hostType":"docker","matchHost":"ghcr.io","username":"${GHCR_USERNAME}","password":"${GHCR_TOKEN}"}]'
+      GITHUB_COM_TOKEN: ${RENOVATE_GITHUB_TOKEN}
+      GITEA_HOST: ${GITEA_HOST}
+      GHCR_USERNAME: ${GHCR_USERNAME}
+      GHCR_TOKEN: ${GHCR_TOKEN}
     volumes:
       - renovate-cache:/tmp/renovate
+      - ./config.js:/usr/src/app/config.js:ro
     networks:
       macvlan_servers:
         ipv4_address: 10.1.30.54
