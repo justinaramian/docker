@@ -1,6 +1,6 @@
 services:
   bazarr:
-    image: ghcr.io/linuxserver/bazarr:v1.6.0-ls360
+    image: ghcr.io/linuxserver/bazarr:v1.6.1-ls364
     container_name: bazarr
     mac_address: "02:42:ac:10:0f:1a"
     dns:
