@@ -1,6 +1,6 @@
 services:
   beszel:
-    image: henrygd/beszel:0.19.0
+    image: henrygd/beszel:0.20.0
     container_name: beszel
     restart: unless-stopped
     environment:
@@ -18,7 +18,7 @@ services:
         mac_address: 02:42:0a:01:1e:2c
 
   beszel-agent:
-    image: henrygd/beszel-agent:0.19.0
+    image: henrygd/beszel-agent:0.20.0
     container_name: beszel-agent
     restart: unless-stopped
     network_mode: host
