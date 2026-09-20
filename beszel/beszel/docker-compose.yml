@@ -29,11 +29,12 @@ services:
       - /opt/stacks/beszel/beszel_socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /.beszel:/extra-filesystems/dm-0__OS:ro
+      - /var/lib/docker/.beszel:/extra-filesystems/sdb__Docker:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
       KEY: ${BESZEL_KEY}
       TOKEN: ${BESZEL_TOKEN}
-      FILESYSTEM: sdb__Docker
+      FILESYSTEM: ubuntu--vg-ubuntu--lv__OS
 
 networks:
   macvlan_servers:
