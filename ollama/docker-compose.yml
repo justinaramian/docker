@@ -1,63 +1,65 @@
-services:
-  ollama:
-    image: ollama/ollama:0.34.2
-    container_name: ollama
-    restart: unless-stopped
-    environment:
-      - TZ=America/Los_Angeles
-      - OLLAMA_KEEP_ALIVE=2hr
-      - OLLAMA_FLASH_ATTENTION=1
-    volumes:
-      - ollama_data:/root/.ollama
-    networks:
-      macvlan_servers:
-        ipv4_address: 10.1.30.57
-        mac_address: 02:42:0a:01:1e:39
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+   services:
+     ollama:
+       image: ollama/ollama:0.34.2
+       container_name: ollama
+       restart: unless-stopped
+       environment:
+         - TZ=America/Los_Angeles
+         - OLLAMA_KEEP_ALIVE=2hr
+         - OLLAMA_FLASH_ATTENTION=1
+       volumes:
+         - ollama_data:/root/.ollama
+       networks:
+         macvlan_servers:
+           ipv4_address: 10.1.30.57
+           mac_address: 02:42:0a:01:1e:39
+       deploy:
+         resources:
+           reservations:
+             devices:
+               - driver: nvidia
+                 count: all
+                 capabilities: [gpu]
 
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.11.3
-    container_name: open-webui
-    restart: unless-stopped
-    depends_on:
-      - ollama
-    environment:
-      - TZ=America/Los_Angeles
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - WEBUI_URL=${WEBUI_URL}
-      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
-      # Authentik OIDC
-      - ENABLE_OAUTH_SIGNUP=true
-      - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
-      - OAUTH_PROVIDER_NAME=Authentik
-      - OPENID_PROVIDER_URL=${OPENID_PROVIDER_URL}
-      - OPENID_REDIRECT_URI=${OPENID_REDIRECT_URI}
-      - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
-      - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
-      - OAUTH_SCOPES=openid email profile groups
-      - ENABLE_LOGIN_FORM=false
-      # Role mapping from AD groups
-      - ENABLE_OAUTH_ROLE_MANAGEMENT=true
-      - OAUTH_ROLES_CLAIM=groups
-      - OAUTH_ALLOWED_ROLES=${OAUTH_ALLOWED_ROLES}
-      - OAUTH_ADMIN_ROLES=${OAUTH_ADMIN_ROLES}
-    volumes:
-      - openwebui_data:/app/backend/data
-    networks:
-      macvlan_servers:
-        ipv4_address: 10.1.30.58
-        mac_address: 02:42:0a:01:1e:3a
+     open-webui:
+       image: ghcr.io/open-webui/open-webui:v0.11.3
+       container_name: open-webui
+       restart: unless-stopped
+       depends_on:
+         - ollama
+       environment:
+         - TZ=America/Los_Angeles
+         - OLLAMA_BASE_URL=http://ollama:11434
+         - WEBUI_URL=${WEBUI_URL}
+         - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+         # Authentik OIDC
+         - ENABLE_OAUTH_SIGNUP=true
+         - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
+         - OAUTH_PROVIDER_NAME=Authentik
+         - OPENID_PROVIDER_URL=${OPENID_PROVIDER_URL}
+         - OPENID_REDIRECT_URI=${OPENID_REDIRECT_URI}
+         - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
+         - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+         - OAUTH_SCOPES=openid email profile groups
+         # SSO only — hide the login form and go straight to Authentik
+         - ENABLE_LOGIN_FORM=false
+         - ENABLE_OAUTH_AUTO_REDIRECT=true
+         # Role mapping from AD groups
+         - ENABLE_OAUTH_ROLE_MANAGEMENT=true
+         - OAUTH_ROLES_CLAIM=groups
+         - OAUTH_ALLOWED_ROLES=${OAUTH_ALLOWED_ROLES}
+         - OAUTH_ADMIN_ROLES=${OAUTH_ADMIN_ROLES}
+       volumes:
+         - openwebui_data:/app/backend/data
+       networks:
+         macvlan_servers:
+           ipv4_address: 10.1.30.58
+           mac_address: 02:42:0a:01:1e:3a
 
-volumes:
-  ollama_data:
-  openwebui_data:
+   volumes:
+     ollama_data:
+     openwebui_data:
 
-networks:
-  macvlan_servers:
-    external: true
+   networks:
+     macvlan_servers:
+       external: true
