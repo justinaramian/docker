@@ -41,6 +41,7 @@ services:
       - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
       - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
       - OAUTH_SCOPES=openid email profile groups
+      - ENABLE_LOGIN_FORM=false
       # Role mapping from AD groups
       - ENABLE_OAUTH_ROLE_MANAGEMENT=true
       - OAUTH_ROLES_CLAIM=groups
