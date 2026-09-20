@@ -18,6 +18,8 @@ services:
       - internalNode=true
       - nodeName=fredk03
       - inContainer=true
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
     volumes:
       - /opt/appdata/tdarr/server:/app/server
       - /opt/appdata/tdarr/configs:/app/configs
@@ -25,6 +27,13 @@ services:
       - /mnt/nas/movies:/movies
       - /mnt/nas/tv:/tv
       - /mnt/nas/downloads/tdarr_staging:/temp
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     networks:
       macvlan_media:
         ipv4_address: 172.16.15.31
