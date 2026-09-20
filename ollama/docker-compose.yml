@@ -1,11 +1,11 @@
-   services:
+\   services:
      ollama:
        image: ollama/ollama:0.34.2
        container_name: ollama
        restart: unless-stopped
        environment:
          - TZ=America/Los_Angeles
-         - OLLAMA_KEEP_ALIVE=2hr
+         - OLLAMA_KEEP_ALIVE=30m
          - OLLAMA_FLASH_ATTENTION=1
        volumes:
          - ollama_data:/root/.ollama
@@ -32,6 +32,8 @@
          - OLLAMA_BASE_URL=http://ollama:11434
          - WEBUI_URL=${WEBUI_URL}
          - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+         # Config comes from this file, not the database
+         - ENABLE_PERSISTENT_CONFIG=false
          # Authentik OIDC
          - ENABLE_OAUTH_SIGNUP=true
          - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
@@ -49,6 +51,16 @@
          - OAUTH_ROLES_CLAIM=groups
          - OAUTH_ALLOWED_ROLES=${OAUTH_ALLOWED_ROLES}
          - OAUTH_ADMIN_ROLES=${OAUTH_ADMIN_ROLES}
+         # Web search via SearXNG
+         - ENABLE_RAG_WEB_SEARCH=true
+         - ENABLE_WEB_SEARCH=true
+         - RAG_WEB_SEARCH_ENGINE=searxng
+         - WEB_SEARCH_ENGINE=searxng
+         - SEARXNG_QUERY_URL=${SEARXNG_QUERY_URL}
+         - RAG_WEB_SEARCH_RESULT_COUNT=4
+         - WEB_SEARCH_RESULT_COUNT=4
+         # Default new users to pending until an admin approves
+         - DEFAULT_USER_ROLE=pending
        volumes:
          - openwebui_data:/app/backend/data
        networks:
