@@ -30,7 +30,7 @@
        environment:
          - TZ=America/Los_Angeles
          - OLLAMA_BASE_URL=http://ollama:11434
-         - WEBUI_URL=https://chat.${DOMAIN}
+         - WEBUI_URL=https://${DOMAIN}
          - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
        volumes:
          - openwebui_data:/app/backend/data
