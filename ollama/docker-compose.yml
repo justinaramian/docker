@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       - TZ=America/Los_Angeles
-      - OLLAMA_KEEP_ALIVE=30m
+      - OLLAMA_KEEP_ALIVE=2hr
       - OLLAMA_FLASH_ATTENTION=1
     volumes:
       - ollama_data:/root/.ollama
