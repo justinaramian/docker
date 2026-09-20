@@ -54,7 +54,8 @@ services:
       - "WEB_SEARCH_CONCURRENT_REQUESTS=3"
       - "BYPASS_WEB_SEARCH_EMBEDDING_AND_RETRIEVAL=true"
       - "BYPASS_WEB_SEARCH_WEB_LOADER=true"
-      - "DEFAULT_USER_ROLE=pending"
+      - "DEFAULT_USER_ROLE=user"
+      - "DEFAULT_MODELS=gemma4:12b"
     volumes:
       - openwebui_data:/app/backend/data
     networks:
