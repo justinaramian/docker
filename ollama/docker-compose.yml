@@ -1,0 +1,48 @@
+   services:
+     ollama:
+       image: ollama/ollama:latest
+       container_name: ollama
+       restart: unless-stopped
+       environment:
+         - TZ=America/Los_Angeles
+         - OLLAMA_KEEP_ALIVE=30m
+         - OLLAMA_FLASH_ATTENTION=1
+       volumes:
+         - ollama_data:/root/.ollama
+       networks:
+         macvlan_servers:
+           ipv4_address: 10.1.30.57
+           mac_address: 02:42:0a:01:1e:39
+       deploy:
+         resources:
+           reservations:
+             devices:
+               - driver: nvidia
+                 count: all
+                 capabilities: [gpu]
+
+     open-webui:
+       image: ghcr.io/open-webui/open-webui:main
+       container_name: open-webui
+       restart: unless-stopped
+       depends_on:
+         - ollama
+       environment:
+         - TZ=America/Los_Angeles
+         - OLLAMA_BASE_URL=http://ollama:11434
+         - WEBUI_URL=https://chat.${DOMAIN}
+         - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+       volumes:
+         - openwebui_data:/app/backend/data
+       networks:
+         macvlan_servers:
+           ipv4_address: 10.1.30.58
+           mac_address: 02:42:0a:01:1e:3a
+
+   volumes:
+     ollama_data:
+     openwebui_data:
+
+   networks:
+     macvlan_servers:
+       external: true
