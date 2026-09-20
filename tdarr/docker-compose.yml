@@ -15,7 +15,8 @@ services:
       - serverIP=0.0.0.0
       - serverPort=8266
       - webUIPort=8265
-      - internalNode=false
+      - internalNode=true
+      - nodeName=fredk03
       - inContainer=true
     volumes:
       - /opt/appdata/tdarr/server:/app/server
