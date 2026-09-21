@@ -1,0 +1,26 @@
+services:
+  crowdsec-web-ui:
+    image: ghcr.io/theduffman85/crowdsec-web-ui:2026.8.1
+    container_name: crowdsec-web-ui
+    hostname: crowdsec-web-ui
+    restart: unless-stopped
+    environment:
+      TZ: America/Los_Angeles
+      CONFIG_UI_TIME_ZONE: America/Los_Angeles
+      CONFIG_INSTANCE_ID: frecs01
+      CONFIG_INSTANCE_NAME: frecs01
+      CONFIG_INSTANCE_LAPI_URL: http://10.1.30.140:8080
+      CONFIG_INSTANCE_LAPI_AUTH_USERNAME: crowdsec-web-ui
+      CONFIG_INSTANCE_LAPI_AUTH_PASSWORD: ${LAPI_PASSWORD}
+    volumes:
+      - crowdsec-web-ui-data:/app/data
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.42
+
+volumes:
+  crowdsec-web-ui-data:
+
+networks:
+  macvlan_servers:
+    external: true
