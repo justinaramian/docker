@@ -1,6 +1,6 @@
 services:
   so-crates:
-    image: ghcr.io/dougburks/so-crates:4.1.0
+    image: ghcr.io/dougburks/so-crates:4.2.0
     container_name: so-crates
     hostname: so-crates
     restart: unless-stopped
