@@ -1,4 +1,4 @@
-   services:
+services:
      portainer_agent:
        image: portainer/agent:2.45.1
        container_name: portainer_agent
