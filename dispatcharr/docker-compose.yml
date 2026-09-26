@@ -1,0 +1,22 @@
+services:
+  dispatcharr:
+    image: ghcr.io/dispatcharr/dispatcharr:0.30.0
+    container_name: dispatcharr
+    hostname: dispatcharr
+    restart: unless-stopped
+    mac_address: 02:42:ac:10:0f:23
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.35
+    volumes:
+      - /opt/appdata/dispatcharr:/data
+    environment:
+      - DISPATCHARR_ENV=aio
+      - REDIS_HOST=localhost
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - DISPATCHARR_LOG_LEVEL=info
+      - TZ=America/Los_Angeles
+
+networks:
+  macvlan_media:
+    external: true
