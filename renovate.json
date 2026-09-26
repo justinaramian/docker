@@ -49,6 +49,11 @@
       "groupName": "homelable"
     },
     {
+      "description": "Portainer server and agents must run the same version",
+      "matchPackageNames": ["portainer/portainer-ee", "portainer/agent"],
+      "groupName": "portainer"
+    },
+    {
       "description": "Low-impact services: automerge all update types",
       "matchFileNames": [
         "sear-xng/**",
