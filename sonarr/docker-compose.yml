@@ -1,6 +1,6 @@
 services:
   sonarr:
-    image: ghcr.io/linuxserver/sonarr:4.0.20.3014-ls325
+    image: ghcr.io/linuxserver/sonarr:4.0.20.3014-ls326
     container_name: sonarr
     mac_address: "02:42:ac:10:0f:16"
     dns:
