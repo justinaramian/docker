@@ -54,6 +54,11 @@
       "groupName": "portainer"
     },
     {
+      "description": "Beszel hub and agents (incl. nvidia) share a version",
+      "matchPackageNames": ["/^henrygd\\/beszel/"],
+      "groupName": "beszel"
+    },
+    {
       "description": "Low-impact services: automerge all update types",
       "matchFileNames": [
         "sear-xng/**",
