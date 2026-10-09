@@ -10,6 +10,7 @@ services:
     environment:
       - TZ=America/Los_Angeles
       - DISABLE_SSRF_REQUEST_FILTER=1
+      - SSRF_REQUEST_FILTER_WHITELIST=172.16.15.33
     volumes:
       - /opt/appdata/audiobookshelf:/config
       - /opt/appdata/audiobookshelf/metadata:/metadata
