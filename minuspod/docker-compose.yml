@@ -1,0 +1,57 @@
+services:
+  minuspod:
+    image: ttlequals0/minuspod:2.87.0
+    container_name: minuspod
+    platform: linux/amd64
+    hostname: minuspod
+    mac_address: 02:42:ac:10:0f:21
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.33
+    volumes:
+      - /opt/appdata/minuspod/data:/app/data
+    environment:
+      - LLM_PROVIDER=ollama
+      - OPENAI_BASE_URL=http://10.1.30.57:11434/v1
+      - OPENAI_MODEL=qwen3:14b
+      - WHISPER_MODEL=small
+      - WHISPER_DEVICE=cuda
+      - BASE_URL=http://172.16.15.33:8000
+      - MINUSPOD_PORT=8000
+      - MAX_AUDIO_DOWNLOAD_MB=500
+      - MINUSPOD_MASTER_PASSPHRASE=${MINUSPOD_MASTER_PASSPHRASE}
+      - SESSION_COOKIE_SECURE=false
+      - MINUSPOD_TRUSTED_PROXY_COUNT=0
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/v1/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+    security_opt:
+      - "no-new-privileges:true"
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+    restart: unless-stopped
+
+networks:
+  macvlan_media:
+    external: true
