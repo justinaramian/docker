@@ -1,6 +1,6 @@
 services:
   minuspod:
-    image: ttlequals0/minuspod:2.99.3
+    image: ttlequals0/minuspod:2.99.4
     container_name: minuspod
     platform: linux/amd64
     hostname: minuspod
