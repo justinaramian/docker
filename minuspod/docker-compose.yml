@@ -1,10 +1,6 @@
 services:
   minuspod:
-<<<<<<< HEAD
     image: ttlequals0/minuspod:2.99.6
-=======
-    image: ttlequals0/minuspod:2.99.3
->>>>>>> ce1f671ae2deec92de6106de4800576d624fa533
     container_name: minuspod
     platform: linux/amd64
     hostname: minuspod
