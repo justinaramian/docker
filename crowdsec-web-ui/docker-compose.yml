@@ -1,6 +1,6 @@
    services:
      crowdsec-web-ui:
-       image: ghcr.io/theduffman85/crowdsec-web-ui:2026.10.6
+       image: ghcr.io/theduffman85/crowdsec-web-ui:2026.10.7
        container_name: crowdsec-web-ui
        hostname: crowdsec-web-ui
        restart: unless-stopped
