@@ -5,17 +5,14 @@ services:
     container_name: nginx-reverse-proxy-external
     environment:
       TZ: "America/Los_Angeles"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
     volumes:
       - /opt/docker/nginx-reverse-proxy-external/data:/data
       - /opt/docker/nginx-reverse-proxy-external/letsencrypt:/etc/letsencrypt
-    networks:
-      macvlan_dmz:
-        ipv4_address: 172.16.97.200
-        mac_address: "42:7e:ec:b0:82:6c"
     dns:
       - 10.1.30.101
       - 10.1.30.103
       - 10.1.30.102
-networks:
-  macvlan_dmz:
-    external: true
