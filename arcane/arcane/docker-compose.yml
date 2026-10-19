@@ -5,7 +5,8 @@ services:
     restart: unless-stopped
     cgroup: host
     environment:
-      - APP_URL=http://10.1.30.20:3552
+      - APP_URL=https://arcane.aramian.org
+      - TRUSTED_PROXIES=10.1.30.175
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - PUID=1000
       - PGID=1000
