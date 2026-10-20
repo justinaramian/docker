@@ -13,6 +13,7 @@ services:
       BIND_ADDRESS: 0.0.0.0
       PORT: "8000"
       TZ: America/Los_Angeles
+      ALLOWED_HOSTS: ${DOMAIN}
     volumes:
       - /opt/stacks/so-crates/data:/data
     deploy:
