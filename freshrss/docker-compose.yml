@@ -1,6 +1,6 @@
 services:
   freshrss:
-    image: ghcr.io/linuxserver/freshrss:1.30.2-ls326
+    image: ghcr.io/linuxserver/freshrss:1.30.4-ls327
     container_name: fresh-rss
     restart: unless-stopped
     environment:
