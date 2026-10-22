@@ -54,6 +54,11 @@
       "groupName": "portainer"
     },
     {
+      "description": "Arcane manager and agents must run the same version",
+      "matchPackageNames": ["ghcr.io/getarcaneapp/manager", "ghcr.io/getarcaneapp/agent"],
+      "groupName": "arcane"
+    },
+    {
       "description": "Beszel hub and agents (incl. nvidia) share a version",
       "matchPackageNames": ["/^henrygd\\/beszel/"],
       "groupName": "beszel"
