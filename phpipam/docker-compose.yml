@@ -17,7 +17,7 @@ services:
       - phpipam-backend
 
   phpipam-www:
-    image: phpipam/phpipam-www:v1.8.3
+    image: phpipam/phpipam-www:v1.8.3@sha256:f76005675587d783eea588457b0c1fca86775b44c6cdac5f7526de49dbebcc25
     container_name: phpipam-www
     restart: unless-stopped
     depends_on:
@@ -41,7 +41,7 @@ services:
         mac_address: 02:42:0a:01:1e:28
 
   phpipam-cron:
-    image: phpipam/phpipam-cron:v1.8.3
+    image: phpipam/phpipam-cron:v1.8.3@sha256:5a31cce1b9ef7d1c7933bbf6ca694de6721ca2385b0bbce09e27507624be489c
     container_name: phpipam-cron
     restart: unless-stopped
     depends_on:
