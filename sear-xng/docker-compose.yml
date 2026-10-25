@@ -1,6 +1,6 @@
 services:
   searxng:
-    image: searxng/searxng:2026.8.22-9fea41204
+    image: searxng/searxng:2026.8.22-9fea41204@sha256:11a9b34cdc0b1ec2b991470a2762ecb5a1a531898289fb51dcd015260450729e
     container_name: searxng
     restart: unless-stopped
     networks:

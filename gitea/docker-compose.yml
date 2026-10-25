@@ -1,6 +1,6 @@
 services:
   gitea-db:
-    image: postgres:16.15-alpine
+    image: postgres:16.15-alpine@sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36
     container_name: gitea-db
     restart: unless-stopped
     environment:
@@ -18,7 +18,7 @@ services:
       retries: 5
 
   gitea:
-    image: gitea/gitea:28.2.0
+    image: gitea/gitea:28.2.0@sha256:30777c91280d973fa02be48b1ade735bd6859e8f6f7af3b4444d519437852504
     container_name: gitea
     restart: unless-stopped
     labels:

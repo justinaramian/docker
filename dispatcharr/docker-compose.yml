@@ -1,6 +1,6 @@
 services:
   dispatcharr:
-    image: ghcr.io/dispatcharr/dispatcharr:0.33.0
+    image: ghcr.io/dispatcharr/dispatcharr:0.33.0@sha256:96bc548978c68e684677da7895692eeeefb7f0b2edfa38311dac2b702c61d236
     container_name: dispatcharr
     hostname: dispatcharr
     restart: unless-stopped

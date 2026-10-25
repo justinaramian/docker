@@ -1,6 +1,6 @@
 services:
   readmeabook:
-    image: ghcr.io/kikootwo/readmeabook:1.2.10
+    image: ghcr.io/kikootwo/readmeabook:1.2.10@sha256:80985d505a7d527f3ae2fd207cfa04a5590e6fd42c6feb95461889944f2d3267
     container_name: readmeabook
     mac_address: "02:42:ac:10:0f:25"
     dns:
