@@ -1,6 +1,6 @@
 services:
   beszel-agent:
-    image: henrygd/beszel-agent-nvidia:0.21.1
+    image: henrygd/beszel-agent-nvidia:0.21.1@sha256:b394ca0e451946de5595ae38ab3dbbb2c3390e4c04fb1f4b82ad8768bb8d19be
     container_name: beszel-agent
     restart: unless-stopped
     network_mode: host
