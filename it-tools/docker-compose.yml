@@ -1,6 +1,6 @@
 services:
   it-tools:
-    image: ghcr.io/sharevb/it-tools:2026.10.25
+    image: ghcr.io/sharevb/it-tools:2026.10.25@sha256:c6e68a94af10c73cb4e53eaa78726d8abbbb4ad1a89a3f127a69f85a9ae029ab
     container_name: it-tools
     hostname: it-tools
     restart: unless-stopped

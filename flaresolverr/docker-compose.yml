@@ -1,6 +1,6 @@
 services:
   flaresolverr:
-    image: ghcr.io/flaresolverr/flaresolverr:v3.5.2
+    image: ghcr.io/flaresolverr/flaresolverr:v3.5.2@sha256:c80ae007ce2ccdcd217a12426e4f039ef763ff90738c808d38810c3e59323767
     container_name: flaresolverr
     mac_address: "02:42:ac:10:0f:1d"  # 172.16.15.29
     dns:

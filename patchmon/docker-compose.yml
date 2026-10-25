@@ -1,6 +1,6 @@
 services:
   server:
-    image: ghcr.io/patchmon/patchmon-server:2.1.6
+    image: ghcr.io/patchmon/patchmon-server:2.1.6@sha256:f27e1a059caf97331473de9e907d9592428b88857abb9f4b221cb80027b5a67f
     container_name: patchmon-server
     restart: unless-stopped
     ports:
@@ -50,7 +50,7 @@ services:
         max-file: "3"
 
   database:
-    image: postgres:17.11-alpine
+    image: postgres:17.11-alpine@sha256:eee6c6e1b0894fa4fe0075eb054af9fd1cf39a35321c2d4110626cfe506411fb
     container_name: patchmon-database
     restart: unless-stopped
     environment:
@@ -73,7 +73,7 @@ services:
         max-file: "3"
 
   redis:
-    image: redis:7.4.11-alpine
+    image: redis:7.4.11-alpine@sha256:57e4255cc971b1c8d6f8a6ca283ac01bc3ecdd914273ef6bfaede87aaecd6541
     container_name: patchmon-redis
     restart: unless-stopped
     command: redis-server --requirepass ${PATCHMON_REDIS_PASSWORD}
@@ -95,7 +95,7 @@ services:
         max-file: "3"
 
   guacd:
-    image: guacamole/guacd:1.6.0
+    image: guacamole/guacd:1.6.0@sha256:8974eaa9ba32f713daf311e7cc8cd7e4cdfba1edea39eed75524e78ef4b08f4f
     container_name: patchmon-guacd
     restart: unless-stopped
     read_only: true

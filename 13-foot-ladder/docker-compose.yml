@@ -2,7 +2,7 @@ services:
   13ft:
     container_name: 13ft-ladder
     hostname: 13ft
-    image: ghcr.io/wasi-master/13ft:0.5.0
+    image: ghcr.io/wasi-master/13ft:0.5.0@sha256:a43146f6b6e6d4b2b516baaa5773707e8ce4611a3d2c54c882377104ade89a0f
     restart: unless-stopped
     ports:
       - "5000:5000"
