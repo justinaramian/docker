@@ -1,6 +1,6 @@
 services:
   arcane:
-    image: ghcr.io/getarcaneapp/manager:v2.17.1
+    image: ghcr.io/getarcaneapp/manager:v2.17.1@sha256:3d7057b7e3b3e0be4b3ba34dd1b137b02a055f97ddc232c32817666658643842
     container_name: arcane
     restart: unless-stopped
     cgroup: host
