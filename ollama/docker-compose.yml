@@ -1,6 +1,6 @@
 services:
   ollama:
-    image: ollama/ollama:0.40.8
+    image: ollama/ollama:0.40.11
     container_name: ollama
     restart: unless-stopped
     environment:
@@ -22,7 +22,7 @@ services:
               capabilities: [gpu]
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.12.3
+    image: ghcr.io/open-webui/open-webui:v0.12.4
     container_name: open-webui
     restart: unless-stopped
     depends_on:
