@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/pouzor/homelable-backend:3.6.0
+    image: ghcr.io/pouzor/homelable-backend:3.6.0@sha256:1e501424e8c53989fcea1dc9311d46614ae159b2bfee4608a5c0cd5baee3e9dc
     container_name: homelable-backend
     restart: unless-stopped
     environment:
@@ -27,7 +27,7 @@ services:
       start_period: 15s
 
   frontend:
-    image: ghcr.io/pouzor/homelable-frontend:3.6.0
+    image: ghcr.io/pouzor/homelable-frontend:3.6.0@sha256:5950f4905da2ea92b2a3870066399e718987a4a23d16c368935b9ddb7901635a
     container_name: homelable-frontend
     restart: unless-stopped
     depends_on:
