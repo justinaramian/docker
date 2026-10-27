@@ -73,7 +73,7 @@ services:
         max-file: "3"
 
   redis:
-    image: redis:7.4.11-alpine@sha256:d9436322172a5b482c187bf1f363d3c4fea086fcca6b9c8a94de8f0f39ed3193
+    image: redis:7.4.12-alpine@sha256:338fbfc036dc5517ac0b04d6de21521085935336e565f223406180e9d84166e2
     container_name: patchmon-redis
     restart: unless-stopped
     command: redis-server --requirepass ${PATCHMON_REDIS_PASSWORD}
