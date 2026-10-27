@@ -18,7 +18,7 @@ services:
       retries: 10
 
   reactive-resume:
-    image: amruthpillai/reactive-resume:v6.0.7@sha256:14135a2faf962b575f1dc2804ceb53873bb07cf85989193d693bf0fb922387b3
+    image: amruthpillai/reactive-resume:v6.0.7@sha256:469e5a31b6cdd8d92be4b3799f4af4bd4bdf347493543ffd7b80e806a506ce55
     container_name: rxresume
     restart: unless-stopped
     networks:
