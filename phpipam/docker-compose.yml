@@ -1,6 +1,6 @@
 services:
   phpipam-db:
-    image: mariadb:11.8@sha256:6a4b3c20cffebc8b2d9248924f6a63285176c15a532b8e4840b8804e1c2c0443
+    image: mariadb:11.8@sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd
     container_name: phpipam-db
     restart: unless-stopped
     command: --innodb-buffer-pool-size=256M
