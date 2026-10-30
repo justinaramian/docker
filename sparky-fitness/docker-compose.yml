@@ -13,7 +13,7 @@ services:
       - sparkyfitness-network
 
   sparkyfitness-server:
-    image: codewithcj/sparkyfitness_server:v1.9.0@sha256:f8be8d6963d17e4e5e406a4a8462c0ca4ce5c7e54fd9cb52890f5bfb7012b365
+    image: codewithcj/sparkyfitness_server:v1.10.0@sha256:375e0f2df6e8e4c54186cfe0cc6acdef6fcf02177314f287c8f037e29ce5d9f0
     container_name: sparkyfitness-server
     restart: unless-stopped
     depends_on:
@@ -47,7 +47,7 @@ services:
       - sparkyfitness-network
 
   sparkyfitness-frontend:
-    image: codewithcj/sparkyfitness:v1.9.0@sha256:35d599d80e8a06c0a4b218d6fa7c23d6d3e5818ee7db17edb6820c6deb9611b2
+    image: codewithcj/sparkyfitness:v1.10.0@sha256:864b052f7cbbc522f5bea2b2696c3734ba79e873abf9f144cb261ad3bd3539e5
     container_name: sparkyfitness-frontend
     restart: unless-stopped
     depends_on:
