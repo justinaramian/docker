@@ -76,6 +76,37 @@ services:
               device_ids: ["0"]
               capabilities: [gpu]
 
+  audiomuse-ai-worker-2:
+    image: ghcr.io/neptunehub/audiomuse-ai:3.6.3-nvidia
+    container_name: audiomuse-ai-worker-instance-2
+    environment:
+      SERVICE_TYPE: worker
+      TZ: America/Los_Angeles
+      POSTGRES_USER: audiomuse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: audiomusedb
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      NVIDIA_VISIBLE_DEVICES: "0"
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+      USE_GPU_CLUSTERING: "true"
+      TEMP_DIR: /app/temp_audio
+    volumes:
+      - temp-audio-worker-2:/app/temp_audio
+      - plugins-worker-2:/app/plugin/installed
+    networks:
+      - audiomuse
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+
 networks:
   macvlan_media:
     external: true
@@ -85,5 +116,7 @@ networks:
 volumes:
   temp-audio-flask:
   temp-audio-worker:
+  temp-audio-worker-2:
   plugins-flask:
   plugins-worker:
+  plugins-worker-2:
