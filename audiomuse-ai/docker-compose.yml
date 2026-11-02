@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:15.19-alpine
+    container_name: audiomuse-postgres
+    environment:
+      TZ: America/Los_Angeles
+      POSTGRES_USER: audiomuse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: audiomusedb
+    volumes:
+      - /opt/appdata/audiomuse-ai/postgres:/var/lib/postgresql/data
+    networks:
+      - audiomuse
+    restart: unless-stopped
+
+  audiomuse-ai-flask:
+    image: ghcr.io/neptunehub/audiomuse-ai:3.6.3-nvidia
+    container_name: audiomuse-ai-flask-app
+    environment:
+      SERVICE_TYPE: flask
+      TZ: America/Los_Angeles
+      POSTGRES_USER: audiomuse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: audiomusedb
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      TEMP_DIR: /app/temp_audio
+    volumes:
+      - temp-audio-flask:/app/temp_audio
+      - plugins-flask:/app/plugin/installed
+    networks:
+      macvlan_media:
+        ipv4_address: 172.16.15.32
+        mac_address: 02:42:ac:10:0f:20
+        gw_priority: 1
+      audiomuse: {}
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+
+  audiomuse-ai-worker:
+    image: ghcr.io/neptunehub/audiomuse-ai:3.6.3-nvidia
+    container_name: audiomuse-ai-worker-instance
+    environment:
+      SERVICE_TYPE: worker
+      TZ: America/Los_Angeles
+      POSTGRES_USER: audiomuse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: audiomusedb
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      NVIDIA_VISIBLE_DEVICES: "0"
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+      USE_GPU_CLUSTERING: "true"
+      TEMP_DIR: /app/temp_audio
+    volumes:
+      - temp-audio-worker:/app/temp_audio
+      - plugins-worker:/app/plugin/installed
+    networks:
+      - audiomuse
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+
+networks:
+  macvlan_media:
+    external: true
+  audiomuse:
+    driver: bridge
+
+volumes:
+  temp-audio-flask:
+  temp-audio-worker:
+  plugins-flask:
+  plugins-worker:
