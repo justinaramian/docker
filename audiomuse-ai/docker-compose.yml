@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: audiomusedb
     volumes:
-      - /opt/appdata/audiomuse-ai/postgres:/var/lib/postgresql/data
+      - audiomuse-postgres-data:/var/lib/postgresql/data
     networks:
       - audiomuse
     restart: unless-stopped
@@ -114,6 +114,8 @@ networks:
     driver: bridge
 
 volumes:
+  audiomuse-postgres-data:
+    external: true
   temp-audio-flask:
   temp-audio-worker:
   temp-audio-worker-2:
