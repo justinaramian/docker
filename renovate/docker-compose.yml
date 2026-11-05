@@ -1,6 +1,6 @@
 services:
   renovate:
-    image: renovate/renovate:44.215.0@sha256:10b921ce64cac11667849e7c1c4f0c4996d641f88b949652e69a324622538f7a
+    image: renovate/renovate:44.220.0@sha256:71599a2007228ada2cc6acb5ed836cf2c088537ffe76dafee1ee6a1c5c45d5e5
     container_name: renovate
     hostname: renovate
     restart: unless-stopped
