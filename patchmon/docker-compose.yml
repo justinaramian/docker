@@ -1,6 +1,6 @@
 services:
   server:
-    image: ghcr.io/patchmon/patchmon-server:2.1.7@sha256:ed9190d9d39790c6422d3360bb0320deaa1130db15e6e3c3dc58141d1cd54045
+    image: ghcr.io/patchmon/patchmon-server:2.1.8@sha256:bee093a3ad55925aad5efa9874c5075020b65c9adb8fa412958e211aac9cd094
     container_name: patchmon-server
     restart: unless-stopped
     ports:
