@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15.19-alpine@sha256:7bfdd070376ab11e681f4bf43d3cff1333cf6e6f83723d26a1a6ca95c16e233a
+    image: postgres:15.19-alpine@sha256:aae6554de426ae1990f1a939ff183a0299146cf7142a6f4c379c3357af9cc2d8
     container_name: audiomuse-postgres
     environment:
       TZ: America/Los_Angeles
