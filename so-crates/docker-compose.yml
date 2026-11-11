@@ -21,7 +21,7 @@ services:
         limits:
           memory: 6G
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/socrates.html || exit 1"]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/socrates.html', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 5
