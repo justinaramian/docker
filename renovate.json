@@ -13,6 +13,12 @@
       "enabled": false
     },
     {
+      "description": "Databases: one PR per stack, with the stack folder name in the PR title",
+      "matchPackageNames": ["/postgres/", "/redis/", "/mariadb/", "/mysql/", "/valkey/"],
+      "additionalBranchPrefix": "{{parentDir}}-",
+      "commitMessageSuffix": "({{parentDir}})"
+    },
+    {
       "description": "LinuxServer.io images use a non-semver tag format",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["/^(gh|ls)cr\\.io\\/linuxserver\\//"],
