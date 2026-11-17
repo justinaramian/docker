@@ -55,11 +55,6 @@
       "groupName": "homelable"
     },
     {
-      "description": "Portainer server and agents must run the same version",
-      "matchPackageNames": ["portainer/portainer-ee", "portainer/agent"],
-      "groupName": "portainer"
-    },
-    {
       "description": "Arcane manager and agents must run the same version",
       "matchPackageNames": ["ghcr.io/getarcaneapp/manager", "ghcr.io/getarcaneapp/agent"],
       "groupName": "arcane"
@@ -70,10 +65,9 @@
       "groupName": "beszel"
     },
     {
-      "description": "Renovate itself: minor, patch and digest PRs only between 6 and 11 AM",
+      "description": "Renovate itself: minor, patch and digest PRs",
       "matchPackageNames": ["renovate/renovate", "ghcr.io/renovatebot/renovate"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
-      "schedule": ["* 6-11 * * *"]
     }
   ]
 }
