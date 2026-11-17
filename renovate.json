@@ -70,27 +70,9 @@
       "groupName": "beszel"
     },
     {
-      "description": "Low-impact services: automerge all update types",
-      "matchFileNames": [
-        "sear-xng/**",
-        "nebula-sync/**",
-        "homarr/**",
-        "freshrss/**",
-        "dozzle/**",
-        "dockerproxy/**",
-        "cloudflare-ddns/**",
-        "stirling-pdf/**",
-        "homelable/**",
-        "so-crates/**",
-        "it-tools/**"
-      ],
-      "automerge": true
-    },
-    {
-      "description": "Renovate itself: automerge minor and patch, majors need review",
+      "description": "Renovate itself: minor, patch and digest PRs only between 6 and 11 AM",
       "matchPackageNames": ["renovate/renovate", "ghcr.io/renovatebot/renovate"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
-      "automerge": true,
       "schedule": ["* 6-11 * * *"]
     }
   ]
