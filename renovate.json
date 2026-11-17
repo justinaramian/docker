@@ -67,7 +67,7 @@
     {
       "description": "Renovate itself: minor, patch and digest PRs",
       "matchPackageNames": ["renovate/renovate", "ghcr.io/renovatebot/renovate"],
-      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchUpdateTypes": ["minor", "patch", "digest"]
     }
   ]
 }
