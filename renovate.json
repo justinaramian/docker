@@ -4,7 +4,7 @@
   "timezone": "America/Los_Angeles",
   "schedule": ["at any time"],
   "prHourlyLimit": 0,
-  "prConcurrentLimit": 20,
+  "prConcurrentLimit": 100,
   "packageRules": [
     {
       "description": "Databases: majors need a data migration, handle manually",
