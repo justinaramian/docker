@@ -1,6 +1,6 @@
 services:
   arcane-agent:
-    image: ghcr.io/getarcaneapp/agent:v2.17.3@sha256:3005364d5aa603a8fe8b51bee26413b473965c3c2dc6c152b0016dd1cdda1cf4
+    image: ghcr.io/getarcaneapp/agent:v3.1.1@sha256:63e9ed625daa26fb189fc1e52b0d96634c44b3668f831ecf5e07358f40ba8d73
     container_name: arcane-agent
     restart: unless-stopped
     ports:
