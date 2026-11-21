@@ -1,0 +1,30 @@
+services:
+  npmplus:
+    image: docker.io/zoeyvid/npmplus:2026-11-18-r1
+    container_name: npmplus-internal
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - SETGID
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      TZ: "America/Los_Angeles"
+      LOGROTATE: "true"
+      AUTH_REQUEST_AUTHENTIK_UPSTREAM: "http://172.16.98.62:9000"
+    volumes:
+      - /opt/docker/npmplus-internal/data:/data
+    dns:
+      - 10.1.30.101
+      - 10.1.30.103
+      - 10.1.30.102
+    networks:
+      macvlan_servers:
+        ipv4_address: 10.1.30.175
+        mac_address: "b2:9a:52:4d:0b:12"
+
+networks:
+  macvlan_servers:
+    external: true
