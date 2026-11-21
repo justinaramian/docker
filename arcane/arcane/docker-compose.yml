@@ -5,12 +5,12 @@ services:
     restart: unless-stopped
     cgroup: host
     environment:
-      - APP_URL=${APP_URL}
-      - TRUSTED_PROXIES=10.1.30.175
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - ARCANE_APP_URL=${APP_URL}
+      - ARCANE_TRUSTED_PROXIES=10.1.30.175
+      - ARCANE_ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - PUID=1000
       - PGID=1000
-      - PROJECTS_DIRECTORY=/opt/arcane/projects
+      - ARCANE_PROJECTS_DIRECTORY=/opt/arcane/projects
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - arcane_data:/app/data
