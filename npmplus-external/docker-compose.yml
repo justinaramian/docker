@@ -16,7 +16,6 @@ services:
       LOGROTATE: "true"
     volumes:
       - /opt/docker/npmplus-external/data:/data
-      - /opt/docker/npmplus-external/letsencrypt:/etc/letsencrypt
     dns:
       - 10.1.30.101
       - 10.1.30.103
