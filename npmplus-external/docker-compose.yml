@@ -14,6 +14,7 @@ services:
       TZ: "America/Los_Angeles"
       TRUST_CLOUDFLARE: "true"
       LOGROTATE: "true"
+      AUTH_REQUEST_AUTHENTIK_UPSTREAM: "http://172.16.98.62:9000"
     volumes:
       - /opt/docker/npmplus-external/data:/data
     dns:
