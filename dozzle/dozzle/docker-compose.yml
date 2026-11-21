@@ -13,6 +13,9 @@ services:
       DOZZLE_ADDR: :8080
       DOZZLE_REMOTE_AGENT: 10.1.30.172:7007,10.1.30.173:7007,172.16.97.200:7007
       DOZZLE_AUTH_PROVIDER: forward-proxy
+      DOZZLE_AUTH_HEADER_USER: X-authentik-username
+      DOZZLE_AUTH_HEADER_EMAIL: X-authentik-email
+      DOZZLE_AUTH_HEADER_NAME: X-authentik-name
       DOZZLE_AUTH_LOGOUT_URL: ${DOZZLE_AUTH_LOGOUT_URL}
     networks:
       macvlan_servers:
