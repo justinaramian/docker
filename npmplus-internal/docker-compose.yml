@@ -18,6 +18,7 @@ services:
       OIDC_ISSUER_URL: "${OIDC_ISSUER_URL}"
       OIDC_CLIENT_ID: "${OIDC_CLIENT_ID}"
       OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET}"
+      OIDC_DISABLE_PASSWORD: "true"
     volumes:
       - /opt/docker/npmplus-internal/data:/data
     dns:
