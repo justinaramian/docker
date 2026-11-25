@@ -20,7 +20,7 @@ services:
         ipv4_address: 172.16.98.60
         mac_address: "02:42:98:00:00:60"
   server:
-    image: ghcr.io/goauthentik/server:2026.8.7@sha256:5cee18c7a4304d0d8df1419be0dfe38738538d1fc40b0b38156fa29573346a20
+    image: ghcr.io/goauthentik/server:2026.8.7@sha256:1675a017c46ba7f4f15333aeafeeb64538c581673bcbcd36af872cdf7de4e7f7
     container_name: authentik-server
     restart: unless-stopped
     command: server
@@ -45,7 +45,7 @@ services:
         ipv4_address: 172.16.98.62
         mac_address: "02:42:98:00:00:62"
   worker:
-    image: ghcr.io/goauthentik/server:2026.8.7@sha256:5cee18c7a4304d0d8df1419be0dfe38738538d1fc40b0b38156fa29573346a20
+    image: ghcr.io/goauthentik/server:2026.8.7@sha256:1675a017c46ba7f4f15333aeafeeb64538c581673bcbcd36af872cdf7de4e7f7
     container_name: authentik-worker
     restart: unless-stopped
     command: worker
