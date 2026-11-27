@@ -1,6 +1,6 @@
 services:
   minuspod:
-    image: ttlequals0/minuspod:2.102.15@sha256:1e08797fefde314dcf33ffe1fcff6d25a6893e221dd66abc6cb031957634629d
+    image: ttlequals0/minuspod:2.102.26@sha256:39eb785c50b5af13f0247f7163f3c7a9ee382f5f23c50e7ab6aa5deef5b0bdd0
     container_name: minuspod
     platform: linux/amd64
     hostname: minuspod
