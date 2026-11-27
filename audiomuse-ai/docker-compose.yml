@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
 
   audiomuse-ai-flask:
-    image: ghcr.io/neptunehub/audiomuse-ai:3.7.3-nvidia@sha256:72ce535083d42374ae1e6b6df5f7d022a47249646e73fa2c171a646ba7a34565
+    image: ghcr.io/neptunehub/audiomuse-ai:3.7.5-nvidia@sha256:c04490647b107baac5b1be9231bb3ffd3dd2edafb3f514fc379d40c9983243ac
     container_name: audiomuse-ai-flask-app
     environment:
       SERVICE_TYPE: flask
@@ -46,7 +46,7 @@ services:
               capabilities: [gpu]
 
   audiomuse-ai-worker:
-    image: ghcr.io/neptunehub/audiomuse-ai:3.7.3-nvidia@sha256:72ce535083d42374ae1e6b6df5f7d022a47249646e73fa2c171a646ba7a34565
+    image: ghcr.io/neptunehub/audiomuse-ai:3.7.5-nvidia@sha256:c04490647b107baac5b1be9231bb3ffd3dd2edafb3f514fc379d40c9983243ac
     container_name: audiomuse-ai-worker-instance
     environment:
       SERVICE_TYPE: worker
